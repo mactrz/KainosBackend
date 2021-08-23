@@ -1,4 +1,4 @@
-package com.kainos.ea.Backend.model;
+package com.kainos.ea.backend.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
