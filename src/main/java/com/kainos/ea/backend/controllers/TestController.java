@@ -2,6 +2,7 @@ package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.Test;
 import com.kainos.ea.backend.repositories.TestRepository;
+import com.kainos.ea.backend.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
 
     @Autowired
-    TestRepository testRepository;
+    TestService testService;
 
     @GetMapping("/test")
     public @ResponseBody Iterable<Test> getAllTestsMessages(){
-        return testRepository.findAll();
+        return testService.getAllTestMessages();
     }
 }
