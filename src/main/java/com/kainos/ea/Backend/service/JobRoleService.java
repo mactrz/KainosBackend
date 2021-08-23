@@ -1,4 +1,4 @@
-package com.example.springboottest.service;
+package com.kainos.ea.Backend.service;
 
 import com.kainos.ea.Backend.model.JobRole;
 
