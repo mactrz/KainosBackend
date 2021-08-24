@@ -1,4 +1,4 @@
-package com.kainos.ea.Backend;
+package com.kainos.ea.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
