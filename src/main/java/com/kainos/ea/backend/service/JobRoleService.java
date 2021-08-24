@@ -1,12 +1,6 @@
-package com.kainos.ea.Backend.service;
+package com.kainos.ea.backend.service;
 
-import com.kainos.ea.Backend.model.JobRole;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class JobRoleService {
