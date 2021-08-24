@@ -1,5 +1,7 @@
 package com.kainos.ea.backend.controllers;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.services.JobRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,14 @@ public class JobRoleController {
 
     @GetMapping(path = "/")
     public @ResponseBody
-    Iterable<JobRole> getAllJobRoles(){
+    Iterable<JobRole> getAllJobRoles() {
         return jobRoleService.getAllJobRoles();
+    }
+
+    @GetMapping(path = "/band-level-for-roles")
+    public @ResponseBody
+    Iterable<JobRole> getAllJobRolesSortedByBandName() {
+        return jobRoleService.getAllJobRolesSortByBandName();
     }
 
 

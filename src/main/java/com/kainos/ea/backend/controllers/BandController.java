@@ -20,4 +20,5 @@ public class BandController {
     public @ResponseBody Iterable<Band> getAllBands(){
         return bandService.getAllBands();
     }
+
 }
