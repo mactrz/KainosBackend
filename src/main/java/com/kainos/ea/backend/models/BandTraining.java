@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BandTraining")
-//@IdClass(BandTrainingID.class)
 public class BandTraining {
 
     @Id
@@ -18,9 +17,6 @@ public class BandTraining {
     @ManyToOne
     @JoinColumn(name = "trainingID")
     private Training training;
-
-//    @EmbeddedId
-//    private BandTrainingID bandTrainingID;
 
     public BandTraining() {}
 
