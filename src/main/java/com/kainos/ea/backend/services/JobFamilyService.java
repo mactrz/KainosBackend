@@ -15,4 +15,8 @@ public class JobFamilyService {
         return jobFamilyRepository.findByCapabilityCapabilityName(capabilityName);
     }
 
+    public Iterable<JobFamily> getAllJobFamilies() {
+        return jobFamilyRepository.findAll();
+    }
+
 }

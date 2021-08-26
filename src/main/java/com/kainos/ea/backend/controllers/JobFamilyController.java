@@ -21,5 +21,9 @@ public class JobFamilyController {
         return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
     }
 
+    @GetMapping(path = "list")
+    public @ResponseBody Iterable<JobFamily> getAllJobFamilies() {
+        return jobFamilyService.getAllJobFamilies();
+    }
 
 }
