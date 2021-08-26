@@ -24,9 +24,6 @@ public class JobRole {
     @Column(name = "responsibilites")
     private String responsibilites;
 
-    @OneToMany
-    @Column(name = "capabilityName")
-
     @ManyToOne
     @JoinColumn(name = "capabilityName")
     private Capability capability;
