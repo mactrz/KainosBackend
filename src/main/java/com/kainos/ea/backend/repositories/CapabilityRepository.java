@@ -5,5 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CapabilityRepository extends CrudRepository<Capability, String> {
 
-    Iterable<Capability> findAll();
 }
