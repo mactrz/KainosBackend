@@ -1,13 +1,14 @@
 package com.kainos.ea.backend.repositories;
 
+import org.springframework.stereotype.Repository;
+import java.util.List;
 import com.kainos.ea.backend.models.JobRole;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+public interface JobRolesRepository extends CrudRepository<JobRole, Integer> {
 
-public interface JobRolesRepository extends CrudRepository<JobRole, String> {
-
+    Iterable<JobRole> findAllByOrderByBand();
+    
     List<JobRole> findAllByOrderByCapability();
 
 }

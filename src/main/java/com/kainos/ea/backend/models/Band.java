@@ -1,5 +1,7 @@
+
 package com.kainos.ea.backend.models;
 
+import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

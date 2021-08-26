@@ -11,8 +11,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Objects;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JobRoleControllerTest {
 
@@ -22,6 +22,31 @@ class JobRoleControllerTest {
     TestRestTemplate restTemplate = new TestRestTemplate();
     HttpHeaders headers = new HttpHeaders();
 
+    @Test
+    public void when_QueryingAllJobRoles_expect_ListToNotBeNull() throws Exception{
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
+
+        assertNotNull(Objects.requireNonNull(response.getBody()));
+    }
+
+    @Test
+    public void when_QueryingAllJobRoles_expect_NotEmptyList() throws Exception{
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
+        
+        assertNotNull(Objects.requireNonNull(response.getBody()));
+    }
+
+    @Test
+    public void when_QueryingAllJobRoles_expect_ListWithJobRoleWithID10() throws Exception{
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
+        String expected = "\"id\":10,\"name\":\"Tester\",\"specification\":\"Writes tests\"";
+        
+        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+    }
+    
     @Test
     public void when_ListSortedEndpointCalled_Expect_DataToContainRoleWithId10() throws Exception {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
