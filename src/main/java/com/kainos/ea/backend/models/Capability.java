@@ -1,0 +1,89 @@
+package com.kainos.ea.backend.models;
+
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "Capability")
+public class Capability {
+
+    @Id
+    @Column(name = "capabilityName")
+    private String name;
+
+    @Column(name = "leadName")
+    private String leadName;
+
+    @Column(name = "leadPhoto")
+    private String leadPhoto;
+
+    @Column(name = "leadMessage")
+    private String leadMessage;
+
+    /*
+     *       CONSTRUCTORS
+     * */
+
+    public Capability() {}
+
+    /*
+     *       OVERRIDDEN METHODS
+     * */
+
+    @Override
+    public String toString() {
+        return "Capability{" +
+                "name='" + name + '\'' +
+                ", leadName='" + leadName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Capability that = (Capability) o;
+        return name.equals(that.name) && leadName.equals(that.leadName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, leadName);
+    }
+
+    /*
+     *       GETTERS AND SETTERS
+     * */
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLeadName() {
+        return leadName;
+    }
+
+    public void setLeadName(String leadName) {
+        this.leadName = leadName;
+    }
+
+    public String getLeadPhoto() {
+        return leadPhoto;
+    }
+
+    public void setLeadPhoto(String leadPhoto) {
+        this.leadPhoto = leadPhoto;
+    }
+
+    public String getLeadMessage() {
+        return leadMessage;
+    }
+
+    public void setLeadMessage(String leadMessage) {
+        this.leadMessage = leadMessage;
+    }
+}
