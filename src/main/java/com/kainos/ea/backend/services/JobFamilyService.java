@@ -11,7 +11,7 @@ public class JobFamilyService {
     @Autowired
     JobFamilyRepository jobFamilyRepository;
 
-    public Iterable<JobFamily> getAllJobFamilies(String capabilityName) {
+    public Iterable<JobFamily> getJobFamiliesByCapabilityName(String capabilityName) {
         return jobFamilyRepository.findByCapabilityCapabilityName(capabilityName);
     }
 

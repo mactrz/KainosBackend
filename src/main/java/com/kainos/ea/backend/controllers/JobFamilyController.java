@@ -17,8 +17,8 @@ public class JobFamilyController {
     JobFamilyService jobFamilyService;
 
     @GetMapping(path = "/")
-    public @ResponseBody Iterable<JobFamily> getAllJobFamilies(@RequestParam String capabilityName) {
-        return jobFamilyService.getAllJobFamilies(capabilityName);
+    public @ResponseBody Iterable<JobFamily> getJobFamiliesByCapabilityName(@RequestParam String capabilityName) {
+        return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
     }
 
 
