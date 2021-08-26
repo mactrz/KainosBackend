@@ -1,16 +1,15 @@
 package com.kainos.ea.backend.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Capability")
 public class Capability {
+
     @Id
     @Column(name = "capabilityName")
-    private String capabilityName;
+    private String name;
 
     @Column(name = "leadName")
     private String leadName;
@@ -21,19 +20,47 @@ public class Capability {
     @Column(name = "leadMessage")
     private String leadMessage;
 
-    public Capability() {
+    /*
+     *       CONSTRUCTORS
+     * */
+
+    public Capability() {}
+
+    /*
+     *       OVERRIDDEN METHODS
+     * */
+
+    @Override
+    public String toString() {
+        return "Capability{" +
+                "name='" + name + '\'' +
+                ", leadName='" + leadName + '\'' +
+                '}';
     }
 
-    public Capability(String capabilityName) {
-        this.capabilityName = capabilityName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Capability that = (Capability) o;
+        return name.equals(that.name) && leadName.equals(that.leadName);
     }
 
-    public String getCapabilityName() {
-        return capabilityName;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, leadName);
     }
 
-    public void setCapabilityName(String capabilityName) {
-        this.capabilityName = capabilityName;
+    /*
+     *       GETTERS AND SETTERS
+     * */
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLeadName() {
@@ -58,15 +85,5 @@ public class Capability {
 
     public void setLeadMessage(String leadMessage) {
         this.leadMessage = leadMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "Capability{" +
-                "capabilityName='" + capabilityName + '\'' +
-                ", leadName='" + leadName + '\'' +
-                ", leadPhoto='" + leadPhoto + '\'' +
-                ", leadMessage='" + leadMessage + '\'' +
-                '}';
     }
 }

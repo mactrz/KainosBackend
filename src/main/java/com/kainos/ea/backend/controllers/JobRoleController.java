@@ -19,4 +19,9 @@ public class JobRoleController {
         return jobRolesService.getAllJobRolesSortByBandName();
     }
 
+    @GetMapping("/list-sorted")
+    public @ResponseBody Iterable<JobRole> getAllJobRolesSortedByCapability(){
+        return jobRolesService.getAllJobRolesSortedByCapability();
+    }
+
 }

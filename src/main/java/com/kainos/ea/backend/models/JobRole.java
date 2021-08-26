@@ -6,21 +6,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "JobRole")
 public class JobRole {
+
     @Id
     @GeneratedValue
     @Column(name = "jobRoleID")
     private Integer id;
+
     @Column(name = "jobRoleName")
     private String name;
+
     @Column(name = "specification")
     private String specification;
+
     @Column(name = "sharepointURL")
     private String sharepointUrl;
+
     @Column(name = "responsibilites")
     private String responsibilites;
+
     @ManyToOne
     @JoinColumn(name = "capabilityName")
     private Capability capability;
+
     @ManyToOne
     @JoinColumn(name = "bandName")
     private Band band;
@@ -28,12 +35,13 @@ public class JobRole {
     /*
      *       CONSTRUCTORS
      * */
-    public JobRole() {
-    }
+
+    public JobRole() {}
 
     /*
      *       OVERRIDDEN METHODS
      * */
+
     @Override
     public String toString() {
         return "JobRole{" +
@@ -61,8 +69,9 @@ public class JobRole {
     }
 
     /*
-     *       GETTERS AND SETTERS
-     * */
+    *       GETTERS AND SETTERS
+    * */
+
     public Integer getId() {
         return id;
     }
