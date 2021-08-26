@@ -18,4 +18,5 @@ public class JobRoleService {
     public Iterable<JobRole> getAllJobRolesSortByBandName(){
         return jobRolesRepository.findAllByOrderByBand();
     }
+
 }
