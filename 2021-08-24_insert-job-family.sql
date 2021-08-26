@@ -58,6 +58,6 @@ INSERT INTO JobFamily VALUES ("Cloud Migration", "Platforms");
 INSERT INTO JobFamily VALUES ("Systems Support", "Platforms");
 
 INSERT INTO JobFamily VALUES ("People Strategy and Planning", "People");
-INSERT INTO JobFamily VALUES ("People Support", "Platforms");
-INSERT INTO JobFamily VALUES ("Organisational Development & Learning (OD&L)", "Platforms");
-INSERT INTO JobFamily VALUES ("Talent Acquisition", "Platforms");
+INSERT INTO JobFamily VALUES ("People Support", "People");
+INSERT INTO JobFamily VALUES ("Organisational Development & Learning (OD&L)", "People");
+INSERT INTO JobFamily VALUES ("Talent Acquisition", "People");
