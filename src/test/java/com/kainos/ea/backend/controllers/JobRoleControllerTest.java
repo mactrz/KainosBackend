@@ -23,7 +23,7 @@ class JobRoleControllerTest {
     HttpHeaders headers = new HttpHeaders();
 
     @Test
-    public void when_ListSortedEndpointCalled_Expect_Data_To_Contain_Role_With_Id_10() throws Exception {
+    public void when_ListSortedEndpointCalled_Expect_DataToContainRoleWithId10() throws Exception {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/list-sorted"), HttpMethod.GET, entity, String.class);
         String expected = "{\"id\":10,\"name\":\"Tester\",\"specification\":\"Writes tests\"";
