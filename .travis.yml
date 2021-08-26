@@ -1,4 +1,6 @@
-language: java
-cache:
-  directories:
-    - "$HOME/.cache"
+jdk:
+  - oraclejdk16
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+  - mvn test
