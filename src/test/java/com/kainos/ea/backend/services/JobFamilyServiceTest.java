@@ -20,12 +20,12 @@ class JobFamilyServiceTest {
     @Test
     void when_getJobFamiliesByCapabilityName_expectRepositoryCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
-        Mockito.when(jobFamilyRepository.findByCapabilityCapabilityName("")).thenReturn(jobFamily);
+        Mockito.when(jobFamilyRepository.findByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
 
         List<JobFamily> results = jobFamilyService.getJobFamiliesByCapabilityName("");
 
-        Mockito.verify(jobFamilyRepository).findByCapabilityCapabilityName("");
+        Mockito.verify(jobFamilyRepository).findByCapabilityName("");
         assertEquals(jobFamily, results);
     }
 }

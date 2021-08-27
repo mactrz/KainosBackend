@@ -18,7 +18,7 @@ public class JobFamilyService {
     }
 
     public List<JobFamily> getJobFamiliesByCapabilityName(String capabilityName) {
-        return jobFamilyRepository.findByCapabilityCapabilityName(capabilityName);
+        return jobFamilyRepository.findByCapabilityName(capabilityName);
     }
 
 }

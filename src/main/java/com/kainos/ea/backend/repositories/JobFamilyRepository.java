@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 public interface JobFamilyRepository extends CrudRepository<JobFamily, String> {
-    List<JobFamily> findByCapabilityCapabilityName(String capabilityName);
+    List<JobFamily> findByCapabilityName(String capabilityName);
 }

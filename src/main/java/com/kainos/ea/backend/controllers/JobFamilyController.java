@@ -22,7 +22,7 @@ public class JobFamilyController {
         this.jobFamilyService = jobFamilyService;
     }
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public @ResponseBody
     List<JobFamily> getJobFamiliesByCapabilityName(@RequestParam String capabilityName) {
         return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
