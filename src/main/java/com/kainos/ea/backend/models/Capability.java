@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Capability")
 public class Capability {
+
     @Id
     @Column(name = "capabilityName")
     private String capabilityName;
@@ -21,8 +22,30 @@ public class Capability {
     @Column(name = "leadMessage")
     private String leadMessage;
 
+    /*
+     *       CONSTRUCTORS
+     * */
+
     public Capability() {
     }
+
+    /*
+     *       OVERRIDDEN METHODS
+     * */
+
+    @Override
+    public String toString() {
+        return "Capability{" +
+                "capabilityName='" + capabilityName + '\'' +
+                ", leadName='" + leadName + '\'' +
+                ", leadPhoto='" + leadPhoto + '\'' +
+                ", leadMessage='" + leadMessage + '\'' +
+                '}';
+    }
+
+    /*
+     *       GETTERS AND SETTERS
+     * */
 
     public Capability(String capabilityName) {
         this.capabilityName = capabilityName;
@@ -58,15 +81,5 @@ public class Capability {
 
     public void setLeadMessage(String leadMessage) {
         this.leadMessage = leadMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "Capability{" +
-                "capabilityName='" + capabilityName + '\'' +
-                ", leadName='" + leadName + '\'' +
-                ", leadPhoto='" + leadPhoto + '\'' +
-                ", leadMessage='" + leadMessage + '\'' +
-                '}';
     }
 }

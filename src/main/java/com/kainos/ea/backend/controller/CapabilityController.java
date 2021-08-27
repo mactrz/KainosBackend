@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/capability")
 public class CapabilityController {
 
+    private CapabilityService capabilityService;
+
     @Autowired
-    CapabilityService capabilityService;
+    public CapabilityController(CapabilityService capabilityService) {
+        this.capabilityService = capabilityService;
+    }
 
     @GetMapping("/")
     public @ResponseBody Iterable<Capability> getCapabilities() {
