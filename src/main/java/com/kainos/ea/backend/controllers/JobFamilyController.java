@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class JobFamilyController {
 
+    private JobFamilyService jobFamilyService;
+
     @Autowired
-    JobFamilyService jobFamilyService;
+    public JobFamilyController(JobFamilyService jobFamilyService) {
+        this.jobFamilyService = jobFamilyService;
+    }
 
     @GetMapping(path = "/")
     public @ResponseBody Iterable<JobFamily> getJobFamiliesByCapabilityName(@RequestParam String capabilityName) {
         return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
-    }
-
-    @GetMapping(path = "list")
-    public @ResponseBody Iterable<JobFamily> getAllJobFamilies() {
-        return jobFamilyService.getAllJobFamilies();
     }
 
 }

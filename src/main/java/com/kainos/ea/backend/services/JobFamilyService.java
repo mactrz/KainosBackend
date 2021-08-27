@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class JobFamilyService {
 
+    private JobFamilyRepository jobFamilyRepository;
+
     @Autowired
-    JobFamilyRepository jobFamilyRepository;
+    public JobFamilyService(JobFamilyRepository jobFamilyRepository) {
+        this.jobFamilyRepository = jobFamilyRepository;
+    }
 
     public Iterable<JobFamily> getJobFamiliesByCapabilityName(String capabilityName) {
         return jobFamilyRepository.findByCapabilityCapabilityName(capabilityName);
-    }
-
-    public Iterable<JobFamily> getAllJobFamilies() {
-        return jobFamilyRepository.findAll();
     }
 
 }
