@@ -5,6 +5,8 @@ import com.kainos.ea.backend.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BandService {
 
@@ -15,7 +17,7 @@ public class BandService {
         this.bandRepository = bandRepository;
     }
 
-    public Iterable<Band> getAllBands() {
+    public List<Band> getAllBands() {
         return bandRepository.findAll();
     }
 }

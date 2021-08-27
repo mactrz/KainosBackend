@@ -20,11 +20,11 @@ public class BandServiceTest {
 
     @Test
     public void when_QueryingAllBandNames_expect_RepositoryCalledPassback() {
-        Iterable<Band> bands = List.of(new Band());
+        List<Band> bands = List.of(new Band());
         Mockito.when(bandRepository.findAll()).thenReturn(bands);
         BandService bandService = new BandService(bandRepository);
 
-        Iterable<Band> results = bandService.getAllBands();
+        List<Band> results = bandService.getAllBands();
         Mockito.verify(bandRepository).findAll();
 
         assertEquals(bands, results);

@@ -24,12 +24,12 @@ public class BandTrainingServiceTest {
     public void when_QueryingTrainingByBand_expect_RepositoryCalledPassback() {
         Band band = new Band();
         Training training = new Training();
-        Iterable<Training> trainings = List.of(training);
-        Iterable<BandTraining> bandTrainings = List.of(new BandTraining((short) 0, band, training));
+        List<Training> trainings = List.of(training);
+        List<BandTraining> bandTrainings = List.of(new BandTraining((short) 0, band, training));
         Mockito.when(bandTrainingRepository.findByBandBandName("")).thenReturn(bandTrainings);
         BandTrainingService bandTrainingService = new BandTrainingService(bandTrainingRepository);
 
-        Iterable<Training> results = bandTrainingService.getTrainingByBand("");
+        List<Training> results = bandTrainingService.getTrainingByBand("");
         Mockito.verify(bandTrainingRepository).findByBandBandName("");
 
         assertEquals(trainings, results);

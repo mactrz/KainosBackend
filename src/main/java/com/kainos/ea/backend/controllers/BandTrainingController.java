@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/band-training")
 public class BandTrainingController {
@@ -20,8 +22,9 @@ public class BandTrainingController {
         this.bandTrainingService = bandTrainingService;
     }
 
-    @GetMapping("/")
-    public @ResponseBody Iterable<Training> getTrainingByBand(@RequestParam String bandName) {
+    @GetMapping("")
+    public @ResponseBody
+    List<Training> getTrainingByBand(@RequestParam String bandName) {
         return bandTrainingService.getTrainingByBand(bandName);
     }
 }

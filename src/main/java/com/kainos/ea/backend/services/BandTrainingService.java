@@ -22,8 +22,8 @@ public class BandTrainingService {
         this.bandTrainingRepository = bandTrainingRepository;
     }
 
-    public Iterable<Training> getTrainingByBand(String bandName) {
-        Iterable<BandTraining> bandTrainings = bandTrainingRepository.findByBandBandName(bandName);
+    public List<Training> getTrainingByBand(String bandName) {
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandBandName(bandName);
         List<Training> trainings = new ArrayList<>();
         for (BandTraining bandTraining : bandTrainings) {
             trainings.add(bandTraining.getTraining());
