@@ -23,7 +23,7 @@ public class BandTrainingService {
     }
 
     public List<Training> getTrainingByBand(String bandName) {
-        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandBandName(bandName);
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandName(bandName);
         List<Training> trainings = new ArrayList<>();
         for (BandTraining bandTraining : bandTrainings) {
             trainings.add(bandTraining.getTraining());

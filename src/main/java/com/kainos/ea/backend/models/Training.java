@@ -1,7 +1,6 @@
 package com.kainos.ea.backend.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Training")
@@ -15,14 +14,14 @@ public class Training {
 
     @Id
     @Column(name = "trainingID")
-    private short trainingID;
+    private short ID;
 
     @Column(name = "trainingName")
-    private String trainingName;
+    private String name;
 
     @Column(name = "trainingType")
     @Enumerated(EnumType.STRING)
-    private TrainingType trainingType;
+    private TrainingType type;
 
     @Column(name = "sharepointURL")
     private String sharepointURL;
@@ -30,26 +29,26 @@ public class Training {
     public Training() {}
 
     public Training(short trainingID, String trainingName, TrainingType trainingType, String sharepointURL) {
-        this.trainingID = trainingID;
-        this.trainingName = trainingName;
-        this.trainingType = trainingType;
+        this.ID = trainingID;
+        this.name = trainingName;
+        this.type = trainingType;
         this.sharepointURL = sharepointURL;
     }
 
-    public String getTrainingName() {
-        return trainingName;
+    public String getName() {
+        return name;
     }
 
-    public void setTrainingName(String trainingName) {
-        this.trainingName = trainingName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public TrainingType getTrainingType() {
-        return trainingType;
+    public TrainingType getType() {
+        return type;
     }
 
-    public void setTrainingType(TrainingType trainingType) {
-        this.trainingType = trainingType;
+    public void setType(TrainingType type) {
+        this.type = type;
     }
 
     public String getSharepointURL() {
@@ -63,9 +62,9 @@ public class Training {
     @Override
     public String toString() {
         return "Training{" +
-                "trainingID=" + trainingID +
-                ", trainingName='" + trainingName + '\'' +
-                ", trainingType=" + trainingType +
+                "trainingID=" + ID +
+                ", trainingName='" + name + '\'' +
+                ", trainingType=" + type +
                 ", sharepointURL='" + sharepointURL + '\'' +
                 '}';
     }

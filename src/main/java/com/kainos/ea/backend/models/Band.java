@@ -11,26 +11,26 @@ public class Band {
 
     @Id
     @Column(name = "bandName")
-    private String bandName;
+    private String name;
 
     public Band() {}
 
     public Band(String bandName) {
-        this.bandName = bandName;
+        this.name = bandName;
     }
 
     public String getBandName() {
-        return bandName;
+        return name;
     }
 
     public void setBandName(String bandName) {
-        this.bandName = bandName;
+        this.name = bandName;
     }
 
     @Override
     public String toString() {
         return "Band{" +
-                "bandName='" + bandName + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }
