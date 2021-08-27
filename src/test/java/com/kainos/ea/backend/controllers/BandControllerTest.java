@@ -25,7 +25,7 @@ class BandControllerTest {
     public void getAllBandsTest() throws Exception{
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band/"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"bandName\":\"Associate\"}";
+        String expected = "{\"name\":\"Associate\"}";
 
         assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
     }

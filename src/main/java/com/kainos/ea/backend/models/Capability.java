@@ -9,7 +9,7 @@ public class Capability {
 
     @Id
     @Column(name = "capabilityName")
-    private String capabilityName;
+    private String name;
 
     @Column(name = "leadName")
     private String leadName;
@@ -26,8 +26,8 @@ public class Capability {
 
     public Capability() {}
       
-    public Capability(String capabilityName) {
-        this.capabilityName = capabilityName;
+    public Capability(String name) {
+        this.name = name;
     }
 
     /*
@@ -37,7 +37,7 @@ public class Capability {
     @Override
     public String toString() {
         return "Capability{" +
-                "capabilityName='" + capabilityName + '\'' +
+                "capabilityName='" + name + '\'' +
                 ", leadName='" + leadName + '\'' +
                 ", leadPhoto='" + leadPhoto + '\'' +
                 ", leadMessage='" + leadMessage + '\'' +
@@ -61,12 +61,13 @@ public class Capability {
      *       GETTERS AND SETTERS
      * */
 
-    public String getCapabilityName() {
-        return capabilityName;
+    public String getName() {
+        return name;
     }
 
-    public void setCapabilityName(String capabilityName) {
-        this.capabilityName = capabilityName;
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getLeadName() {
         return leadName;
