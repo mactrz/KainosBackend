@@ -1,58 +1,32 @@
-
 package com.kainos.ea.backend.controllers;
 
-import com.kainos.ea.backend.BackendApplicationTests;
+import com.kainos.ea.backend.models.Training;
+import com.kainos.ea.backend.services.BandTrainingService;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Objects;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BandTrainingControllerTest extends BackendApplicationTests {
+@ExtendWith(MockitoExtension.class)
+class BandTrainingControllerTest {
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
-
-    @Test
-    public void when_BandTrainingEndpointCalledWithApprentice_Expect_DataToContainExampleTraining() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band-training?bandName=Apprentice"),
-                HttpMethod.GET, entity, String.class);
-        String expected = "{\"trainingName\":\"Example Training\",\"trainingType\":\"PROFESSIONAL_SKILLS\",\"sharepointURL\":\"https://www.google.com/\"}";
-
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
-    }
+    @Mock
+    private BandTrainingService bandTrainingService;
 
     @Test
-    public void when_BandTrainingEndpointCalledWithBadBand_Expect_EmptyJSON() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band-training?bandName=xyz"),
-                HttpMethod.GET, entity, String.class);
-        String expected = "[]";
+    public void when_QueryingTrainingByBand_expect_ServiceCalledPassback() {
+        Iterable<Training> training = List.of(new Training());
+        Mockito.when(bandTrainingService.getTrainingByBand("")).thenReturn(training);
+        BandTrainingController bandTrainingController = new BandTrainingController(bandTrainingService);
 
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
-    }
+        Iterable<Training> results = bandTrainingController.getTrainingByBand("");
+        Mockito.verify(bandTrainingService).getTrainingByBand("");
 
-    @Test
-    public void when_BandTrainingEndpointCalledWithNoParameter_Expect_ClientError() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band-training"),
-                HttpMethod.GET, entity, String.class);
-
-        assertTrue(response.getStatusCode().is4xxClientError());
-    }
-
-    @Test
-    public void when_BandTrainingEndpointCalledWithBadParameter_Expect_ClientError() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band-training?abc=xyz"),
-                HttpMethod.GET, entity, String.class);
-
-        assertTrue(response.getStatusCode().is4xxClientError());
+        assertEquals(training, results);
     }
 }

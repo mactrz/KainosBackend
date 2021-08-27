@@ -1,29 +1,32 @@
 package com.kainos.ea.backend.controllers;
 
-import com.kainos.ea.backend.BackendApplicationTests;
+import com.kainos.ea.backend.models.Band;
+import com.kainos.ea.backend.services.BandService;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Objects;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BandControllerTest extends BackendApplicationTests {
+@ExtendWith(MockitoExtension.class)
+public class BandControllerTest {
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    @Mock
+    private BandService bandService;
 
     @Test
-    public void when_BandsEndpointCalled_Expect_DataToContainAllBands() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/bands"),
-                HttpMethod.GET, entity, String.class);
-        String expected = "[{\"bandName\":\"Apprentice\"},{\"bandName\":\"Associate\"},{\"bandName\":\"Consultant\"},{\"bandName\":\"Senior Associate\"},{\"bandName\":\"Trainee\"}]";
+    public void when_QueryingAllBandNames_expect_ServiceCalledPassback() {
+        Iterable<Band> bands = List.of(new Band());
+        Mockito.when(bandService.getAllBands()).thenReturn(bands);
+        BandController bandController = new BandController(bandService);
 
-        assertEquals(Objects.requireNonNull(response.getBody()), expected);
+        Iterable<Band> results = bandController.getAllBands();
+        Mockito.verify(bandService).getAllBands();
+
+        assertEquals(bands, results);
     }
 }

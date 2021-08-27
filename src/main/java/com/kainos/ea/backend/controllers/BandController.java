@@ -1,7 +1,7 @@
 package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.Band;
-import com.kainos.ea.backend.service.BandService;
+import com.kainos.ea.backend.services.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path ="/")
+@RequestMapping(path ="/band")
 public class BandController {
 
-    @Autowired
-    BandService bandService;
+    private BandService bandService;
 
-    @GetMapping("/bands")
-    public @ResponseBody Iterable<Band> getBands() {
-        return bandService.getBands();
+    @Autowired
+    public BandController(BandService bandService) {
+        this.bandService = bandService;
+    }
+
+    @GetMapping("/")
+    public @ResponseBody
+    Iterable<Band> getAllBands() {
+        return bandService.getAllBands();
     }
 }

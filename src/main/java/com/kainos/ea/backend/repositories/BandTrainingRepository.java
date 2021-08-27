@@ -5,7 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BandTrainingRepository extends CrudRepository<BandTraining, Short> {
 
-    Iterable<BandTraining> findAll();
-
     Iterable<BandTraining> findByBandBandName(String bandName);
 }

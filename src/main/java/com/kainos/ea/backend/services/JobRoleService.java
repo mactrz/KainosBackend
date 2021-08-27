@@ -1,4 +1,4 @@
-package com.kainos.ea.backend.service;
+package com.kainos.ea.backend.services;
 
 import org.springframework.stereotype.Component;
 
