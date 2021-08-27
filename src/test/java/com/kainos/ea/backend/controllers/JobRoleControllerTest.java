@@ -30,11 +30,11 @@ class JobRoleControllerTest {
 
     @Test
     public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback(){
-        Iterable<JobRole> jobRoles = Collections.emptyList();
+        List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRolesService.getAllJobRolesSortByBandName()).thenReturn(jobRoles);
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
 
-        Iterable<JobRole> results = jobRoleController.getAllJobRolesSortedByBandName();
+        List<JobRole> results = jobRoleController.getAllJobRolesSortedByBandName();
         // check if the service has been called
         Mockito.verify(jobRolesService).getAllJobRolesSortByBandName();
 
@@ -48,7 +48,7 @@ class JobRoleControllerTest {
 
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
 
-        Iterable<JobRole> results = jobRoleController.getAllJobRolesSortedByCapability();
+        List<JobRole> results = jobRoleController.getAllJobRolesSortedByCapability();
         // check if the service has been called
         Mockito.verify(jobRolesService).getAllJobRolesSortedByCapability();
 

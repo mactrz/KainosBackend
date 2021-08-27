@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/job-role")
 public class JobRoleController {
@@ -19,12 +21,13 @@ public class JobRoleController {
 
     @GetMapping(path = "/band-level")
     public @ResponseBody
-    Iterable<JobRole> getAllJobRolesSortedByBandName() {
+    List<JobRole> getAllJobRolesSortedByBandName() {
         return jobRolesService.getAllJobRolesSortByBandName();
     }
 
     @GetMapping("/list-sorted")
-    public @ResponseBody Iterable<JobRole> getAllJobRolesSortedByCapability(){
+    public @ResponseBody
+    List<JobRole> getAllJobRolesSortedByCapability(){
         return jobRolesService.getAllJobRolesSortedByCapability();
     }
 
