@@ -9,16 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/capability")
 public class CapabilityController {
 
+    private CapabilityService capabilityService;
+
     @Autowired
-    CapabilityService capabilityService;
+    public CapabilityController(CapabilityService capabilityService) {
+        this.capabilityService = capabilityService;
+    }
 
     @GetMapping(path = "/")
     public @ResponseBody
-    Iterable<Capability> getAllCapabilities() {
+    List<Capability> getAllCapabilities() {
         return capabilityService.getAllCapabilities();
     }
 }

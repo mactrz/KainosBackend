@@ -13,11 +13,11 @@ public class JobRolesService {
     JobRolesRepository jobRolesRepository;
 
     // change to list as its simpler
-    public Iterable<JobRole> getAllJobRoles(){
+    public List<JobRole> getAllJobRoles(){
         return jobRolesRepository.findAll();
     }
 
-    public Iterable<JobRole> getAllJobRolesSortByBandName(){
+    public List<JobRole> getAllJobRolesSortByBandName(){
         return jobRolesRepository.findAllByOrderByBand();
     }
   
