@@ -19,11 +19,11 @@ public class Band {
         this.name = bandName;
     }
 
-    public String getBandName() {
+    public String getName() {
         return name;
     }
 
-    public void setBandName(String bandName) {
+    public void setName(String bandName) {
         this.name = bandName;
     }
 
