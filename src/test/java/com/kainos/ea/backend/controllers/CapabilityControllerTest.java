@@ -25,7 +25,7 @@ class CapabilityControllerTest extends BackendApplicationTests {
     public void when_CapabilityEndpointCalled_Expect_DataToContainBrianCox() {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/capability/"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"capabilityName\":\"Data\",\"leadName\":\"Prof Brian Cox\",\"leadPhoto\":\"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Fa176808a-30d8-11eb-8bd6-64d3c9126a9b.jpg\",\"leadMessage\":\"I love space\"}";
+        String expected = "{\"name\":\"Data\",\"leadName\":\"Prof Brian Cox\",\"leadPhoto\":\"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Fa176808a-30d8-11eb-8bd6-64d3c9126a9b.jpg\",\"leadMessage\":\"I love space\"}";
 
         assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
     }
@@ -34,7 +34,7 @@ class CapabilityControllerTest extends BackendApplicationTests {
     public void getAllCapabilitiesTest() throws Exception{
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/capability/"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"capabilityName\":\"Engineering\"," +
+        String expected = "{\"name\":\"Engineering\"," +
                 "\"leadName\":null,\"leadPhoto\":null,\"leadMessage\":null}";
 
         assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));

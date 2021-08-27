@@ -12,6 +12,7 @@ public class JobRolesService {
     @Autowired
     JobRolesRepository jobRolesRepository;
 
+    // change to list as its simpler
     public Iterable<JobRole> getAllJobRoles(){
         return jobRolesRepository.findAll();
     }
