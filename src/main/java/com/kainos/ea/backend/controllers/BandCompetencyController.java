@@ -16,9 +16,6 @@ public class BandCompetencyController {
     @Autowired
     BandCompetencyService bandCompetencyService;
 
-    public BandCompetencyController(BandCompetencyService service) {
-        this.bandCompetencyService = service;
-    }
 
     @GetMapping("/competency/{bandName}")
     public @ResponseBody

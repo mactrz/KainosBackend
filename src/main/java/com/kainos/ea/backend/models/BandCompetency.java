@@ -28,7 +28,18 @@ public class BandCompetency {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "competencyMainName")
+    private String mainName;
+
     public BandCompetency() {
+    }
+
+    public String getMainName() {
+        return mainName;
+    }
+
+    public void setMainName(String mainName) {
+        this.mainName = mainName;
     }
 
     public Long getId() {
