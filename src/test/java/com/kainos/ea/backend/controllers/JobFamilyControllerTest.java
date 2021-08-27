@@ -17,11 +17,11 @@ class JobFamilyControllerTest {
 
     @Test
     public void whenQueryingDataJobs_expect_ServiceCalledPassback() {
-        Iterable<JobFamily> jobFamily = List.of(new JobFamily());
+        List<JobFamily> jobFamily = List.of(new JobFamily());
         Mockito.when(jobFamilyService.getJobFamiliesByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyController jobFamilyController = new JobFamilyController(jobFamilyService);
 
-        Iterable<JobFamily> results = jobFamilyController.getJobFamiliesByCapabilityName("");
+        List<JobFamily> results = jobFamilyController.getJobFamiliesByCapabilityName("");
 
         Mockito.verify(jobFamilyService).getJobFamiliesByCapabilityName("");
         assertEquals(jobFamily, results);

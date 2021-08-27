@@ -5,6 +5,8 @@ import com.kainos.ea.backend.repositories.JobFamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JobFamilyService {
 
@@ -15,7 +17,7 @@ public class JobFamilyService {
         this.jobFamilyRepository = jobFamilyRepository;
     }
 
-    public Iterable<JobFamily> getJobFamiliesByCapabilityName(String capabilityName) {
+    public List<JobFamily> getJobFamiliesByCapabilityName(String capabilityName) {
         return jobFamilyRepository.findByCapabilityCapabilityName(capabilityName);
     }
 

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @RequestMapping(path = "/job-family")
 @Controller
 public class JobFamilyController {
@@ -21,7 +23,8 @@ public class JobFamilyController {
     }
 
     @GetMapping(path = "/")
-    public @ResponseBody Iterable<JobFamily> getJobFamiliesByCapabilityName(@RequestParam String capabilityName) {
+    public @ResponseBody
+    List<JobFamily> getJobFamiliesByCapabilityName(@RequestParam String capabilityName) {
         return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
     }
 

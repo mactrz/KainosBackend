@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 public interface JobFamilyRepository extends CrudRepository<JobFamily, String> {
-    Iterable<JobFamily> findByCapabilityCapabilityName(String capabilityName);
+    List<JobFamily> findByCapabilityCapabilityName(String capabilityName);
 }
