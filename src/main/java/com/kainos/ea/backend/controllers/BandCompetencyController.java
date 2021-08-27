@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path="/")
 public class BandCompetencyController {
@@ -21,7 +23,7 @@ public class BandCompetencyController {
 
     @GetMapping("/competency/{bandName}")
     public @ResponseBody
-    Iterable<BandCompetency> getCompetenciesByBand(@PathVariable("bandName") String bandName){
+    List<BandCompetency> getCompetenciesByBand(@PathVariable("bandName") String bandName){
         return bandCompetencyService.getCompetenciesByBand(bandName);
     }
 }

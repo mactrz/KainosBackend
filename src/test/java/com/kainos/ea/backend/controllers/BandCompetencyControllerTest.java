@@ -23,7 +23,7 @@ class JobRoleControllerTest {
 
     @Test
     public void when_querying_getCompetenciesByBand_expect_ServiceCalledPassback(){
-        Iterable<BandCompetency> bandCompetencies = List.of(new BandCompetency());
+        List<BandCompetency> bandCompetencies = List.of(new BandCompetency());
         Mockito.when(bandCompetencyService.getCompetenciesByBand("string")).thenReturn(bandCompetencies);
         BandCompetencyController bandCompetencyController = new BandCompetencyController(bandCompetencyService);
 

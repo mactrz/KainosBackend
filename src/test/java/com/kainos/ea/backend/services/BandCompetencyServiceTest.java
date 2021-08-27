@@ -20,7 +20,7 @@ class BandCompetencyTest {
 
     @Test
     public void when_querying_getCompetenciesByBand_expect_ServiceCalledPassback(){
-        Iterable<BandCompetency> bandCompetencies = List.of(new BandCompetency());
+        List<BandCompetency> bandCompetencies = List.of(new BandCompetency());
         Mockito.when(bandCompetencyRepository.findAllByBand_BandName("string")).thenReturn(bandCompetencies);
         BandCompetencyService bandCompetencyService = new BandCompetencyService(bandCompetencyRepository);
 
