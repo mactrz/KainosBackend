@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/job-role")
 public class JobRoleController {
 
+    private JobRolesService jobRolesService;
+
     @Autowired
-    JobRolesService jobRolesService;
+    public JobRoleController(JobRolesService jobRolesService) {
+        this.jobRolesService = jobRolesService;
+    }
 
     @GetMapping(path = "/band-level")
     public @ResponseBody
@@ -23,5 +27,6 @@ public class JobRoleController {
     public @ResponseBody Iterable<JobRole> getAllJobRolesSortedByCapability(){
         return jobRolesService.getAllJobRolesSortedByCapability();
     }
+
 
 }

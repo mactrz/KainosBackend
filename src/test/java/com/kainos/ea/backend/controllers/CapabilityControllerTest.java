@@ -34,8 +34,8 @@ class CapabilityControllerTest extends BackendApplicationTests {
     public void getAllCapabilitiesTest() throws Exception{
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/capability/"), HttpMethod.GET, entity, String.class);
-        String expected = "\"name\":\"Engineering\"," +
-                "\"leadName\":null,\"leadPhoto\":null,\"leadMessage\":null";
+        String expected = "{\"name\":\"Engineering\"," +
+                "\"leadName\":null,\"leadPhoto\":null,\"leadMessage\":null}";
 
         assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
     }
