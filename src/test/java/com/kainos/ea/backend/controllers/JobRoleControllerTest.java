@@ -17,19 +17,6 @@ class JobRoleControllerTest {
     private JobRolesService jobRolesService;
 
     @Test
-    public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback(){
-        List<JobRole> jobRoles = List.of(new JobRole());
-        Mockito.when(jobRolesService.getAllJobRolesSortByBandName()).thenReturn(jobRoles);
-        JobRoleController jobRoleController = new JobRoleController(jobRolesService);
-
-        List<JobRole> results = jobRoleController.getAllJobRolesSortedByBandName();
-        // check if the service has been called
-        Mockito.verify(jobRolesService).getAllJobRolesSortByBandName();
-
-        assertEquals(jobRoles, results);
-    }
-
-    @Test
     public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback(){
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRolesService.getAllJobRolesSortedByCapability()).thenReturn(jobRoles);
