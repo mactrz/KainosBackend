@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CapabilityControllerTest extends BackendApplicationTests {
+class CapabilityControllerTest {
 
     @Mock
     private CapabilityService capabilityService;
