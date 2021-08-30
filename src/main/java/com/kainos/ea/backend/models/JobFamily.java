@@ -8,7 +8,7 @@ public class JobFamily {
 
     @Id
     @Column(name = "jobFamilyName")
-    private String jobFamilyName;
+    private String name;
 
     @JoinColumn(name = "capabilityName")
     @ManyToOne
@@ -26,18 +26,18 @@ public class JobFamily {
         this.capability = capability;
     }
 
-    public String getJobFamilyName() {
-        return jobFamilyName;
+    public String getName() {
+        return name;
     }
 
-    public void setJobFamilyName(String jobFamilyName) {
-        this.jobFamilyName = jobFamilyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "JobFamily{" +
-                "jobFamilyName='" + jobFamilyName + '\'' +
+                "jobFamilyName='" + name + '\'' +
                 ", capabilityName='" + capability + '\'' +
                 '}';
     }
