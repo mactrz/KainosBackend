@@ -15,7 +15,7 @@ import static java.util.stream.StreamSupport.stream;
 @Service
 public class BandTrainingService {
 
-    BandTrainingRepository bandTrainingRepository;
+    private BandTrainingRepository bandTrainingRepository;
 
     @Autowired
     public BandTrainingService(BandTrainingRepository bandTrainingRepository) {
