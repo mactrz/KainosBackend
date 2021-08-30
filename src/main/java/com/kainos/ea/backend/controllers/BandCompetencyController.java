@@ -2,6 +2,7 @@ package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.BandCompetency;
 import com.kainos.ea.backend.services.BandCompetencyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ public class BandCompetencyController {
 
     private BandCompetencyService bandCompetencyService;
 
+    @Autowired
     public BandCompetencyController(BandCompetencyService bandCompetencyService) {
         this.bandCompetencyService = bandCompetencyService;
     }

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path = "/band")
 public class BandController {
 
+    private BandService bandService;
+
     @Autowired
-    BandService bandService;
+    public BandController(BandService bandService) { this.bandService = bandService; }
 
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Band> getAllBands(){
