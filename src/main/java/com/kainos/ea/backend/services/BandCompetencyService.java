@@ -19,6 +19,6 @@ public class BandCompetencyService {
     }
 
     public List<BandCompetency> getCompetenciesByBand(String bandName){
-        return bandCompetencyRepository.findAllByBand_BandName(bandName);
+        return bandCompetencyRepository.findAllByBandName(bandName);
     }
 }
