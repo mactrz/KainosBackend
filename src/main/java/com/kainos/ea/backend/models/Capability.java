@@ -37,7 +37,7 @@ public class Capability {
     @Override
     public String toString() {
         return "Capability{" +
-                "capabilityName='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", leadName='" + leadName + '\'' +
                 ", leadPhoto='" + leadPhoto + '\'' +
                 ", leadMessage='" + leadMessage + '\'' +
