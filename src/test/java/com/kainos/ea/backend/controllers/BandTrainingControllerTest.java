@@ -21,11 +21,11 @@ class BandTrainingControllerTest {
     @Test
     public void when_QueryingTrainingByBand_expect_ServiceCalledPassback() {
         List<Training> training = List.of(new Training());
-        Mockito.when(bandTrainingService.getTrainingByBand("")).thenReturn(training);
+        Mockito.when(bandTrainingService.getTrainingByBandSortedByTrainingType("")).thenReturn(training);
         BandTrainingController bandTrainingController = new BandTrainingController(bandTrainingService);
 
-        List<Training> results = bandTrainingController.getTrainingByBand("");
-        Mockito.verify(bandTrainingService).getTrainingByBand("");
+        List<Training> results = bandTrainingController.getTrainingByBandSortedByTrainingType("");
+        Mockito.verify(bandTrainingService).getTrainingByBandSortedByTrainingType("");
 
         assertEquals(training, results);
     }
