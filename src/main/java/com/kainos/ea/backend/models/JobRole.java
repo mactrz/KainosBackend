@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "JobRole")
@@ -21,10 +22,10 @@ public class JobRole {
     private String specification;
 
     @Column(name = "sharepointURL")
-    private String sharepointUrl;
+    private String sharepointUrl = "URL not provided yet";
 
     @Column(name = "responsibilites")
-    private String responsibilites;
+    private String responsibilites = "Responsibilities not provided yet";
 
     @ManyToOne
     @JoinColumn(name = "capabilityName")

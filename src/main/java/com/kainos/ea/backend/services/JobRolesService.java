@@ -12,8 +12,6 @@ public class JobRolesService {
     @Autowired
     JobRolesRepository jobRolesRepository;
 
-    public List<JobRole> getAllJobRolesSortedByCapability(){
-        return jobRolesRepository.findAllByOrderByCapability();
-    }
-
+    public List<JobRole> getAllJobRolesSortedByCapability(){ return jobRolesRepository.findAllByOrderByCapability(); }
+    public JobRole saveJobRole(JobRole jobRole){ return jobRolesRepository.save(jobRole); }
 }
