@@ -10,10 +10,14 @@ import java.util.List;
 @Service
 public class CapabilityService {
 
-    @Autowired
-    CapabilityRepository capabilityRepository;
+    private CapabilityRepository capabilityRepository;
 
-    public List<Capability> getAllCapabilities(){
+    @Autowired
+    public CapabilityService(CapabilityRepository capabilityRepository) {
+        this.capabilityRepository = capabilityRepository;
+    }
+
+    public List<Capability> getCapabilities() {
         return capabilityRepository.findAll();
     }
 }
