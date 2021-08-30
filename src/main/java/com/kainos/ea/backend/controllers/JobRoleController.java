@@ -19,12 +19,6 @@ public class JobRoleController {
         this.jobRolesService = jobRolesService;
     }
 
-    @GetMapping(path = "/band-level")
-    public @ResponseBody
-    List<JobRole> getAllJobRolesSortedByBandName() {
-        return jobRolesService.getAllJobRolesSortByBandName();
-    }
-
     @GetMapping("/list-sorted")
     public @ResponseBody
     List<JobRole> getAllJobRolesSortedByCapability(){

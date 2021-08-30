@@ -12,15 +12,6 @@ public class JobRolesService {
     @Autowired
     JobRolesRepository jobRolesRepository;
 
-    // change to list as its simpler
-    public List<JobRole> getAllJobRoles(){
-        return jobRolesRepository.findAll();
-    }
-
-    public List<JobRole> getAllJobRolesSortByBandName(){
-        return jobRolesRepository.findAllByOrderByBand();
-    }
-  
     public List<JobRole> getAllJobRolesSortedByCapability(){
         return jobRolesRepository.findAllByOrderByCapability();
     }
