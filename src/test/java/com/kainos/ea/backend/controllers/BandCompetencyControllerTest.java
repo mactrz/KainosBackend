@@ -27,7 +27,7 @@ class BandCompetencyControllerTest {
         Mockito.when(bandCompetencyService.getCompetenciesByBand("string")).thenReturn(bandCompetencies);
         BandCompetencyController bandCompetencyController = new BandCompetencyController(bandCompetencyService);
 
-        Iterable<BandCompetency> results = bandCompetencyController.getCompetenciesByBand("string");
+        List<BandCompetency> results = bandCompetencyController.getCompetenciesByBand("string");
         Mockito.verify(bandCompetencyService).getCompetenciesByBand("string");
 
         assertEquals(bandCompetencies, results);
