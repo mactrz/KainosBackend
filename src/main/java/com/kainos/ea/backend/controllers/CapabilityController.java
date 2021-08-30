@@ -24,7 +24,7 @@ public class CapabilityController {
 
     @GetMapping(path = "/")
     public @ResponseBody
-    List<Capability> getAllCapabilities() {
-        return capabilityService.getAllCapabilities();
+    List<Capability> getCapabilities() {
+        return capabilityService.getCapabilities();
     }
 }

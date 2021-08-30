@@ -1,6 +1,5 @@
 package com.kainos.ea.backend.services;
 
-import com.kainos.ea.backend.controller.CapabilityController;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.repositories.CapabilityRepository;
 import org.junit.jupiter.api.Test;
