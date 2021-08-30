@@ -1,12 +1,12 @@
-
 package com.kainos.ea.backend.models;
 
+import javax.persistence.*;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
-
 @Entity
 @Table(name = "Band")
 public class Band {
@@ -15,15 +15,23 @@ public class Band {
     @Column(name = "bandName")
     private String name;
 
-    /*
-     *       CONSTRUCTORS
-     * */
+    @OneToMany(mappedBy = "band")
+    Set<BandCompetency> description;
 
-    public Band() {}
+    public Band() {
+    }
 
-    /*
-     *       OVERRIDDEN METHODS
-     * */
+    public Band(String bandName) {
+        this.name = bandName;
+    }
+
+    public Set<BandCompetency> getBand() {
+        return description;
+    }
+
+    public void setBand(Set<BandCompetency> descriptions) {
+        this.description = descriptions;
+    }
 
     @Override
     public String toString() {

@@ -4,13 +4,17 @@ import com.kainos.ea.backend.BackendApplicationTests;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.services.CapabilityService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CapabilityControllerTest extends BackendApplicationTests {
+@ExtendWith(MockitoExtension.class)
+class CapabilityControllerTest {
 
     @Mock
     private CapabilityService capabilityService;
