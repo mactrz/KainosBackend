@@ -26,11 +26,11 @@ public class BandTrainingServiceTest {
         Training training = new Training();
         List<Training> trainings = List.of(training);
         List<BandTraining> bandTrainings = List.of(new BandTraining((short) 0, band, training));
-        Mockito.when(bandTrainingRepository.findByBandName("")).thenReturn(bandTrainings);
+        Mockito.when(bandTrainingRepository.findByBandNameOrderByTrainingType("")).thenReturn(bandTrainings);
         BandTrainingService bandTrainingService = new BandTrainingService(bandTrainingRepository);
 
-        List<Training> results = bandTrainingService.getTrainingByBand("");
-        Mockito.verify(bandTrainingRepository).findByBandName("");
+        List<Training> results = bandTrainingService.getTrainingByBandSortedByTrainingType("");
+        Mockito.verify(bandTrainingRepository).findByBandNameOrderByTrainingType("");
 
         assertEquals(trainings, results);
     }
