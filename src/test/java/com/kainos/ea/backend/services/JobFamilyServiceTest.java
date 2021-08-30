@@ -18,7 +18,7 @@ class JobFamilyServiceTest {
     private JobFamilyRepository jobFamilyRepository;
 
     @Test
-    void when_getJobFamiliesByCapabilityName_expectRepositoryCalledPassback() {
+    void when_getJobFamiliesByCapabilityName_expect_RepositoryCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
         Mockito.when(jobFamilyRepository.findByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);

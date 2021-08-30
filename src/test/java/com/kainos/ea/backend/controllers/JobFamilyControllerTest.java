@@ -16,7 +16,7 @@ class JobFamilyControllerTest {
     private JobFamilyService jobFamilyService;
 
     @Test
-    public void whenQueryingDataJobs_expect_ServiceCalledPassback() {
+    public void when_QueryingDataJobs_expect_ServiceCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
         Mockito.when(jobFamilyService.getJobFamiliesByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyController jobFamilyController = new JobFamilyController(jobFamilyService);
