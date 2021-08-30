@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BandCompetencyRepository extends CrudRepository<BandCompetency, String> {
 
-    public List<BandCompetency> findAllByBand_BandName(String bandName);
+    List<BandCompetency> findAllByBandName(String bandName);
 }
