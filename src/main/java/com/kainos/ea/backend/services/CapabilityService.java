@@ -20,4 +20,8 @@ public class CapabilityService {
     public List<Capability> getCapabilities() {
         return capabilityRepository.findAll();
     }
+
+    public Capability addCapability(Capability capability) {
+        return capabilityRepository.save(capability);
+    }
 }

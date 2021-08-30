@@ -4,10 +4,9 @@ package com.kainos.ea.backend.controllers;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.services.CapabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +21,14 @@ public class CapabilityController {
         this.capabilityService = capabilityService;
     }
 
-    @GetMapping(path = "/")
+    @GetMapping("/")
     public @ResponseBody
     List<Capability> getCapabilities() {
         return capabilityService.getCapabilities();
+    }
+
+    @PostMapping("/")
+    public Capability addCapability(@RequestBody Capability capability) {
+        return capabilityService.addCapability(capability);
     }
 }
