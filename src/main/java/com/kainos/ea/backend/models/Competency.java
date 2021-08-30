@@ -10,7 +10,7 @@ public class Competency {
 
     @Id
     @Column(name = "competencyName")
-    private String competencyName;
+    private String name;
 
     @OneToMany(mappedBy = "competency")
     @JsonBackReference
@@ -19,7 +19,7 @@ public class Competency {
     public Competency(){}
 
     public Competency(String competencyName) {
-        this.competencyName = competencyName;
+        this.name = competencyName;
     }
 
     public Set<BandCompetency> getDescription() {
@@ -30,16 +30,12 @@ public class Competency {
         this.description = description;
     }
 
-    public String getCompetencyName() {
-        return competencyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompetencyName(String competencyName) {
-        this.competencyName = competencyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return competencyName;
-    }
 }

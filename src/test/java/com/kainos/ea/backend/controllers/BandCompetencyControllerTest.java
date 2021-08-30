@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class JobRoleControllerTest {
+class BandCompetencyControllerTest {
 
     @Mock
     private BandCompetencyService bandCompetencyService;
