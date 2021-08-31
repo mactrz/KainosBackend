@@ -57,6 +57,6 @@ public class JobRolesService {
         if (savedJobRole == null) {
             return new ResponseEntity<Object>("There was an error while adding a job role! Please, try again later.", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Object>("Account created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<Object>("Job role created successfully", HttpStatus.CREATED);
     }
 }
