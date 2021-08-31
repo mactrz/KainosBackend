@@ -2,5 +2,5 @@
 
 insert into User(username, password, isAdmin)
 values
-('username', '$2a$10$IhBDPin1wgGPW.ShrpXAXehvoQPA4JPuAXfTGn3nb5IYOFpC17fyG', 0),
-('admin', '$2a$10$.Ul5Z4YbTmeS1MN89qy3kO8.a05D0cdjYm9wL.FsrZv4CF..3JBZW', 1);
+('username@kainos.com', '$2a$04$cKdU1pCkScsJrT9lCdD/A.44crtlEvwufG5tO/oFEBviwpEwzrNy.', 0), --password
+('admin@kainos.com', '$2a$04$qcm3tUsOfYabxN0Dq61JuOYUEFPhFzYw/dqqVYdXlOxCM91I3vcj2', 1); --admin_password

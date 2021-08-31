@@ -22,21 +22,27 @@ public class UserController {
         this.userService = userService;
     }
 
+    public UserController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @PostMapping(path = "/verify")
     public @ResponseBody
     Boolean verifyUser(@RequestBody User user) {
-        //If any accounts match username and password return true
         String username = user.getUsername();
         String password = user.getPassword();
-        List<User> users = userService.getUsers();
-        return users.stream()
-                .anyMatch(user1 -> {
-                    System.out.println(("Usernames: " + user1.getUsername()).equals(username));
-                    System.out.println("Pass sent:"+password);
-                    System.out.println("Pass: "+ passwordEncoder.matches(password, user1.getPassword()));
-                     return (user1.getUsername().equals(username))
-                        && (passwordEncoder.matches(password, user1.getPassword()));
-                });
+
+        //Check if username and password match regexp
+        if(userService.validateUser(user)) {
+
+            //If any accounts match username and password return true
+            List<User> users = userService.getUsers();
+            return users.stream()
+                    .anyMatch(matchedUser -> (matchedUser.getUsername().equals(username))
+                            && (passwordEncoder.matches(password, matchedUser.getPassword())));
+        }
+        else return false;
     }
 
 
