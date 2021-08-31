@@ -45,14 +45,4 @@ public class UserController {
         else return false;
     }
 
-
-    // Creating a user for future implementation
-
-//    @PostMapping(path = "/create")
-//    public @ResponseBody
-//    User createUser(@RequestBody User user) {
-//        // Set password to be encrypted
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        return userService.saveUser(user);
-//    }
 }
