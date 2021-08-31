@@ -38,23 +38,6 @@ public class JobRoleController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addJobRole(@RequestBody JobRole jobRole){
-        Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
-        if(band.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Optional<Capability> capability = capabilityService.getCapabilityByName(jobRole.getCapability().getName());
-        if(capability.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        jobRole.setCapability(capability.get());
-        jobRole.setBand(band.get());
-        JobRole savedJobRole = jobRolesService.saveJobRole(jobRole);
-        if(savedJobRole == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<Object>("Account created successfully", HttpStatus.CREATED);
-        }
+        return jobRolesService.addJobRole(jobRole);
     }
-
-
 }
