@@ -5,7 +5,7 @@ import java.util.List;
 import com.kainos.ea.backend.models.JobRole;
 import org.springframework.data.repository.CrudRepository;
 
-public interface JobRolesRepository extends CrudRepository<JobRole, Integer> {
+public interface JobRoleRepository extends CrudRepository<JobRole, Integer> {
 
     List<JobRole> findAllByOrderByBand();
     List<JobRole> findAll();

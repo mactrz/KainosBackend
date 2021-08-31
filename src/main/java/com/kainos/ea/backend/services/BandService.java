@@ -18,6 +18,6 @@ public class BandService {
     }
 
     public List<Band> getAllBands() {
-        return bandRepository.findAll();
+        return bandRepository.findAllByOrderByLevelDesc();
     }
 }
