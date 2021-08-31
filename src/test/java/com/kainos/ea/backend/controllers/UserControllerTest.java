@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,26 +20,21 @@ public class UserControllerTest {
     @Test
     public void when_verifyUserCalledWithValidUser_expect_true() {
         User validUser = new User("mail@email.com", "strong_password");
-        List<User> users = List.of(validUser);
         Mockito.when(userService.validateUser(validUser)).thenReturn(true);
-        Mockito.when(userService.getUsers()).thenReturn(users);
-        Mockito.when(passwordEncoder.matches("strong_password", "strong_password")).thenReturn(true);
+        Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_password", passwordEncoder)).thenReturn(true);
         UserController userController = new UserController(userService, passwordEncoder);
         Boolean results = userController.verifyUser(validUser);
         Mockito.verify(userService).validateUser(validUser);
-        Mockito.verify(userService).getUsers();
         assertTrue(results);
     }
     @Test
     public void when_verifyUserCalledWithUnknownUser_expect_false() {
         User invalidUser = new User("mail@email.com", "strong_password");
-        List<User> users = List.of(new User("new@email.com", "strong_password"));
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
-        Mockito.when(userService.getUsers()).thenReturn(users);
+        Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_password", passwordEncoder)).thenReturn(false);
         UserController userController = new UserController(userService, passwordEncoder);
         Boolean results = userController.verifyUser(invalidUser);
         Mockito.verify(userService).validateUser(invalidUser);
-        Mockito.verify(userService).getUsers();
         assertFalse(results);
     }
     @Test
@@ -74,27 +68,22 @@ public class UserControllerTest {
     @Test
     public void when_verifyUserCalledWithGoodUsernameBadPassword_expect_false() {
         User invalidUser = new User("mail@email.com", "strong_pas");
-        List<User> users = List.of(new User("mail@email.com", "strong_password"));
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
-        Mockito.when(userService.getUsers()).thenReturn(users);
-        Mockito.when(passwordEncoder.matches("strong_pas", "strong_password")).thenReturn(false);
+        Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_pas", passwordEncoder)).thenReturn(false);
         UserController userController = new UserController(userService, passwordEncoder);
         Boolean results = userController.verifyUser(invalidUser);
         Mockito.verify(userService).validateUser(invalidUser);
-        Mockito.verify(userService).getUsers();
         assertFalse(results);
     }
 
     @Test
     public void when_verifyUserCalledWithGoodPasswordBadUsername_expect_false() {
         User invalidUser = new User("ma@email.com", "strong_password");
-        List<User> users = List.of(new User("mail@email.com", "strong_password"));
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
-        Mockito.when(userService.getUsers()).thenReturn(users);
+        Mockito.when(userService.doCredentialsMatch("ma@email.com", "strong_password", passwordEncoder)).thenReturn(false);
         UserController userController = new UserController(userService, passwordEncoder);
         Boolean results = userController.verifyUser(invalidUser);
         Mockito.verify(userService).validateUser(invalidUser);
-        Mockito.verify(userService).getUsers();
         assertFalse(results);
     }
 }

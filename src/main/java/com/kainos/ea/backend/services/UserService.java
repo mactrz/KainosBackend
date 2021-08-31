@@ -3,6 +3,7 @@ package com.kainos.ea.backend.services;
 import com.kainos.ea.backend.models.User;
 import com.kainos.ea.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,13 @@ public class UserService {
     public Boolean validateUser(User user) {
         return validateUsername(user.getUsername())
         && validatePassword(user.getPassword());
+    }
+
+    public Boolean doCredentialsMatch(String username, String password, BCryptPasswordEncoder passwordEncoder) {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .anyMatch(matchedUser -> (matchedUser.getUsername().equals(username))
+                        && (passwordEncoder.matches(password, matchedUser.getPassword())));
     }
 
 }

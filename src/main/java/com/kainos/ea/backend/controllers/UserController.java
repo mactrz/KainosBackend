@@ -33,16 +33,6 @@ public class UserController {
         String username = user.getUsername();
         String password = user.getPassword();
 
-        //Check if username and password match regexp
-        if(userService.validateUser(user)) {
-
-            //If any accounts match username and password return true
-            List<User> users = userService.getUsers();
-            return users.stream()
-                    .anyMatch(matchedUser -> (matchedUser.getUsername().equals(username))
-                            && (passwordEncoder.matches(password, matchedUser.getPassword())));
-        }
-        else return false;
+        return userService.validateUser(user) && userService.doCredentialsMatch(username, password, passwordEncoder);
     }
-
 }
