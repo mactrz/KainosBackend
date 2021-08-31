@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.InvalidNameException;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,10 @@ public class CapabilityController {
 
     @PostMapping("/")
     public Capability addCapability(@RequestBody Capability capability) {
-        return capabilityService.addCapability(capability);
+        try {
+            return capabilityService.addCapability(capability);
+        } catch (InvalidNameException e) {
+            return null;
+        }
     }
 }

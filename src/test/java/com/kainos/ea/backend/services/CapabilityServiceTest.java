@@ -9,9 +9,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.naming.InvalidNameException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class CapabilityServiceTest {
@@ -38,13 +40,27 @@ public class CapabilityServiceTest {
     }
 
     @Test
-    public void when_AddingCapabilities_expect_RepositoryCalledPassback() {
-        Capability capability = new Capability();
+    public void when_AddingValidCapability_expect_RepositoryCalledPassback() throws InvalidNameException {
+        Capability capability = new Capability("Valid Name");
         Mockito.when(capabilityRepository.save(capability)).thenReturn(capability);
 
         Capability result = capabilityService.addCapability(capability);
         Mockito.verify(capabilityRepository).save(capability);
 
         assertEquals(capability, result);
+    }
+
+    @Test
+    public void when_AddingInvalidCapability_expect_InvalidNameExceptionThrown() {
+        Capability capability = new Capability("<Invalid Name>!");
+
+        assertThrows(InvalidNameException.class, () -> capabilityService.addCapability(capability));
+    }
+
+    @Test
+    public void when_AddingBlankCapability_expect_InvalidNameExceptionThrown() {
+        Capability capability = new Capability("");
+
+        assertThrows(InvalidNameException.class, () -> capabilityService.addCapability(capability));
     }
 }
