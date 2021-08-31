@@ -1,4 +1,5 @@
 package com.kainos.ea.backend.controllers;
+
 import com.kainos.ea.backend.models.User;
 import com.kainos.ea.backend.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ public class UserControllerTest {
         Mockito.verify(userService).validateUser(validUser);
         assertTrue(results);
     }
+
     @Test
     public void when_verifyUserCalledWithUnknownUser_expect_false() {
         User invalidUser = new User("mail@email.com", "strong_password");
@@ -37,6 +39,7 @@ public class UserControllerTest {
         Mockito.verify(userService).validateUser(invalidUser);
         assertFalse(results);
     }
+
     @Test
     public void when_verifyUserCalledWithUserInvalidEmail_expect_false() {
         User invalidUser = new User("mailemail.com", "strong_password");
@@ -46,6 +49,7 @@ public class UserControllerTest {
         Mockito.verify(userService).validateUser(invalidUser);
         assertFalse(results);
     }
+
     @Test
     public void when_verifyUserCalledWithUserEmptyMail_expect_false() {
         User invalidUser = new User("", "strong_password");
@@ -55,6 +59,7 @@ public class UserControllerTest {
         Mockito.verify(userService).validateUser(invalidUser);
         assertFalse(results);
     }
+
     @Test
     public void when_verifyUserCalledWithUserEmptyPassword_expect_false() {
         User invalidUser = new User("mail@kainos.com", "");

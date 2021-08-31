@@ -1,14 +1,11 @@
 package com.kainos.ea.backend.controllers;
 
-
 import com.kainos.ea.backend.models.User;
 import com.kainos.ea.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/users")
