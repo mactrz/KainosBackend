@@ -4,7 +4,6 @@ package com.kainos.ea.backend.controllers;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.services.CapabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +35,11 @@ public class CapabilityController {
         } catch (InvalidNameException | InstanceAlreadyExistsException e) {
             return null;
         }
+    }
+
+    @GetMapping("/exists")
+    public @ResponseBody
+    boolean capabilityExists(@RequestParam String name) {
+        return capabilityService.capabilityExists(name);
     }
 }

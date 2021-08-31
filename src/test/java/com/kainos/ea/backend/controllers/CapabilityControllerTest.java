@@ -15,6 +15,7 @@ import javax.naming.InvalidNameException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class CapabilityControllerTest {
@@ -52,7 +53,7 @@ class CapabilityControllerTest {
     }
 
     @Test
-    public void when_AddingInvalidCapability_expect_NullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
+    public void when_AddingInvalidCapability_expect_ServiceCalledPassbackAndNullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
         Capability capability = new Capability("Invalid name!");
         Mockito.when(capabilityService.addCapability(capability)).thenThrow(InvalidNameException.class);
 
@@ -63,7 +64,7 @@ class CapabilityControllerTest {
     }
 
     @Test
-    public void when_AddingAlreadyExistingCapability_expect_NullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
+    public void when_AddingExistingCapability_expect_ServiceCalledPassbackAndNullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
         Capability capability = new Capability("Existing capability");
         Mockito.when(capabilityService.addCapability(capability)).thenThrow(InstanceAlreadyExistsException.class);
 
@@ -71,5 +72,16 @@ class CapabilityControllerTest {
         Mockito.verify(capabilityService).addCapability(capability);
 
         Assertions.assertNull(result);
+    }
+
+    @Test
+    public void when_CheckingExistingCapability_expect_ServiceCalledPassback() {
+        String capabilityName = "Existing capability";
+        Mockito.when(capabilityService.capabilityExists(capabilityName)).thenReturn(true);
+
+        boolean result = capabilityController.capabilityExists(capabilityName);
+        Mockito.verify(capabilityService).capabilityExists(capabilityName);
+
+        assertTrue(result);
     }
 }

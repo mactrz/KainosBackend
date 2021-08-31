@@ -2,6 +2,7 @@ package com.kainos.ea.backend.services;
 
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.repositories.CapabilityRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,13 +67,39 @@ public class CapabilityServiceTest {
     }
 
     @Test
-    public void when_AddingAlreadyExistingCapability_expect_InstanceAlreadyExistsExceptionThrown() {
-        Capability existingCapability = new Capability("Existing capability");
+    public void when_AddingExistingCapability_expect_InstanceAlreadyExistsExceptionThrown() {
+        String capabilityName = "Existing capability";
+        Capability existingCapability = new Capability(capabilityName);
         existingCapability.setLeadName("Joe Bloggs");
-        Capability newCapability = new Capability("Existing capability");
+        Capability newCapability = new Capability(capabilityName);
         List<Capability> capabilities = List.of(existingCapability);
-        Mockito.when(capabilityRepository.findAll()).thenReturn(capabilities);
+        Mockito.when(capabilityRepository.findByName(capabilityName)).thenReturn(capabilities);
 
         assertThrows(InstanceAlreadyExistsException.class, () -> capabilityService.addCapability(newCapability));
+    }
+
+    @Test
+    public void when_CheckingExistingCapability_expect_CapabilityExistsReturnsTrue() {
+        String capabilityName = "Existing Capability";
+        Capability existingCapability = new Capability(capabilityName);
+        List<Capability> capabilities = List.of(existingCapability);
+        Mockito.when(capabilityRepository.findByName(capabilityName)).thenReturn(capabilities);
+
+        boolean result = capabilityService.capabilityExists(capabilityName);
+        Mockito.verify(capabilityRepository).findByName(capabilityName);
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void when_CheckingNewCapability_expect_CapabilityExistsReturnsFalse() {
+        String capabilityName = "New Capability";
+        List<Capability> capabilities = List.of();
+        Mockito.when(capabilityRepository.findByName(capabilityName)).thenReturn(capabilities);
+
+        boolean result = capabilityService.capabilityExists(capabilityName);
+        Mockito.verify(capabilityRepository).findByName(capabilityName);
+
+        Assertions.assertFalse(result);
     }
 }

@@ -24,14 +24,14 @@ public class CapabilityService {
     }
 
     public Capability addCapability(Capability capability) throws InvalidNameException, InstanceAlreadyExistsException {
-        if (!capability.getName().matches("[A-Za-z0-9 ]+")) {
+        if (!capability.getName().matches("[A-Za-z0-9 ]+"))
             throw new InvalidNameException("Only alphanumeric characters are allowed in the capability name");
-        }
-        for (Capability existingCapability : getCapabilities()) {
-            if (existingCapability.getName().equals(capability.getName())) {
-                throw new InstanceAlreadyExistsException();
-            }
-        }
+        if (capabilityExists(capability.getName()))
+            throw new InstanceAlreadyExistsException();
         return capabilityRepository.save(capability);
+    }
+
+    public boolean capabilityExists(String capabilityName) {
+        return !capabilityRepository.findByName(capabilityName).isEmpty();
     }
 }
