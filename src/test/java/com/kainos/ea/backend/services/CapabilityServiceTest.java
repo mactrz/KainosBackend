@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class CapabilityServiceTest {
     }
 
     @Test
-    public void when_AddingValidCapability_expect_RepositoryCalledPassback() throws InvalidNameException {
+    public void when_AddingValidCapability_expect_RepositoryCalledPassback() throws InvalidNameException, InstanceAlreadyExistsException {
         Capability capability = new Capability("Valid Name");
         Mockito.when(capabilityRepository.save(capability)).thenReturn(capability);
 
@@ -62,5 +63,16 @@ public class CapabilityServiceTest {
         Capability capability = new Capability("");
 
         assertThrows(InvalidNameException.class, () -> capabilityService.addCapability(capability));
+    }
+
+    @Test
+    public void when_AddingAlreadyExistingCapability_expect_InstanceAlreadyExistsExceptionThrown() {
+        Capability existingCapability = new Capability("Existing capability");
+        existingCapability.setLeadName("Joe Bloggs");
+        Capability newCapability = new Capability("Existing capability");
+        List<Capability> capabilities = List.of(existingCapability);
+        Mockito.when(capabilityRepository.findAll()).thenReturn(capabilities);
+
+        assertThrows(InstanceAlreadyExistsException.class, () -> capabilityService.addCapability(newCapability));
     }
 }

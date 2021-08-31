@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class CapabilityController {
     public Capability addCapability(@RequestBody Capability capability) {
         try {
             return capabilityService.addCapability(capability);
-        } catch (InvalidNameException e) {
+        } catch (InvalidNameException | InstanceAlreadyExistsException e) {
             return null;
         }
     }
