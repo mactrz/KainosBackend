@@ -5,8 +5,6 @@ import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.repositories.JobRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +15,16 @@ import java.util.regex.Pattern;
 @Service
 public class JobRolesService {
 
+    private JobRolesRepository jobRolesRepository;
+    private BandService bandService;
+    private CapabilityService capabilityService;
+
     @Autowired
-    JobRolesRepository jobRolesRepository;
-    @Autowired
-    BandService bandService;
-    @Autowired
-    CapabilityService capabilityService;
+    public JobRolesService(JobRolesRepository jobRolesRepository, BandService bandService, CapabilityService capabilityService) {
+        this.jobRolesRepository = jobRolesRepository;
+        this.bandService = bandService;
+        this.capabilityService = capabilityService;
+    }
 
     public List<JobRole> getAllJobRolesSortedByCapability() {
         return jobRolesRepository.findAllByOrderByCapability();
@@ -32,31 +34,30 @@ public class JobRolesService {
         return jobRolesRepository.save(jobRole);
     }
 
-    public ResponseEntity<?> addJobRole(JobRole jobRole) {
+    public void addJobRole(JobRole jobRole) throws Exception {
         Pattern pattern = Pattern.compile("^[A-z][A-z ]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(jobRole.getName());
         if (jobRole.getName().length() > 32 || !matcher.find()) {
-            return new ResponseEntity<Object>("Invalid role name!", HttpStatus.BAD_REQUEST);
+            throw new Exception("Invalid role name!");
         }
-        pattern = Pattern.compile("^[A-z][0-9A-z ().,/-]{0,249}$", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("^[A-z][0-9A-z '().,/-]{0,249}$", Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(jobRole.getName());
         if (jobRole.getSpecification().length() > 250 || !matcher.find()) {
-            return new ResponseEntity<Object>("Invalid specification!", HttpStatus.BAD_REQUEST);
+            throw new Exception("Invalid specification!");
         }
         Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
         if (band.isEmpty()) {
-            return new ResponseEntity<Object>("Band with given name does not exist!", HttpStatus.BAD_REQUEST);
+            throw new Exception("Band with given name does not exist!");
         }
         Optional<Capability> capability = capabilityService.getCapabilityByName(jobRole.getCapability().getName());
         if (capability.isEmpty()) {
-            return new ResponseEntity<Object>("Capability with given name does not exist!", HttpStatus.BAD_REQUEST);
+            throw new Exception("Capability with given name does not exist!");
         }
         jobRole.setCapability(capability.get());
         jobRole.setBand(band.get());
         JobRole savedJobRole = saveJobRole(jobRole);
         if (savedJobRole == null) {
-            return new ResponseEntity<Object>("There was an error while adding a job role! Please, try again later.", HttpStatus.BAD_REQUEST);
+            throw new Exception("There was an error while adding a job role! Please, try again later.");
         }
-        return new ResponseEntity<Object>("Job role created successfully!", HttpStatus.CREATED);
     }
 }
