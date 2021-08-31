@@ -22,7 +22,7 @@ public class JobRole {
     private String specification;
 
     @Column(name = "sharepointURL")
-    private String sharepointUrl = "URL not provided yet";
+    private String sharepointUrl = "https://kainossoftwareltd.sharepoint.com/people/SitePages/Career-Lattice.aspx";
 
     @Column(name = "responsibilites")
     private String responsibilites = "Responsibilities not provided yet";
