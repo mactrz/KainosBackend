@@ -28,12 +28,12 @@ public class JobRoleController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addJobRole(@RequestBody JobRole jobRole){
+    public ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
         try{
             jobRolesService.addJobRole(jobRole);
         } catch (Exception e){
-            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Object>("Job role created successfully!", HttpStatus.CREATED);
+        return new ResponseEntity<>("Job role created successfully!", HttpStatus.CREATED);
     }
 }

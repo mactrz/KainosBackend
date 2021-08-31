@@ -40,7 +40,7 @@ class JobRoleControllerTest {
         JobRole jobRole = new JobRole();
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
 
-        ResponseEntity<?> result = jobRoleController.addJobRole(jobRole);
+        ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRolesService).addJobRole(jobRole);
         assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
@@ -52,7 +52,7 @@ class JobRoleControllerTest {
 
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
 
-        ResponseEntity<?> result = jobRoleController.addJobRole(jobRole);
+        ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRolesService).addJobRole(jobRole);
         assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
