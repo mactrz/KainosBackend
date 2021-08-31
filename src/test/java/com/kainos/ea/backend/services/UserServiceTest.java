@@ -19,7 +19,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    public void when_getUsers_called_expect_list_of_users() {
+    public void when_getUsersCalled_expect_listOfUsers() {
         List<User> users = List.of(
                 new User("mail@email.com", "strong_password"),
                 new User("mail2@kainos.com", "weak_password"));
@@ -34,7 +34,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validatePassword_called_with_valid_password_expect_true() {
+    public void when_validatePasswordCalledWithValidPassword_expect_true() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validatePassword("strong_password");
 
@@ -42,7 +42,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validatePassword_called_with_too_short_password_expect_false() {
+    public void when_validatePasswordCalledWithTooShortPassword_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validatePassword("asd");
 
@@ -50,7 +50,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validatePassword_called_with_no_letters_password_expect_false() {
+    public void when_validatePasswordCalledWithNoLettersPassword_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validatePassword("123");
 
@@ -58,7 +58,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validatePassword_called_with_empty_password_expect_false() {
+    public void when_validatePasswordCalledWithEmptyPassword_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validatePassword("123");
 
@@ -66,7 +66,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUsername_called_with_valid_username_expect_true() {
+    public void when_validateUsernameCalledWithValidUsername_expect_true() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validateUsername("mail@kainos.com");
 
@@ -74,7 +74,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUsername_called_with_no_at_expect_false() {
+    public void when_validateUsernameCalledWithNoAt_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validateUsername("mailkainos.com");
 
@@ -82,7 +82,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUsername_called_with_no_domain_expect_false() {
+    public void when_validateUsernameCalledWithNoDomain_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validateUsername("mail@.com");
 
@@ -90,7 +90,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUsername_called_with_no_name_expect_false() {
+    public void when_validateUsernameCalledWithNoName_expect_false() {
         UserService userService = new UserService(userRepository);
         Boolean result = userService.validateUsername("@kainos.com");
 
@@ -98,7 +98,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUser_called_with_valid_user_expect_true() {
+    public void when_validateUserCalledWithValidUser_expect_true() {
         User validUser = new User("mail@kainos.com", "strong_password");
 
         UserService userService = new UserService(userRepository);
@@ -108,7 +108,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUser_called_with_invalid_user_expect_false() {
+    public void when_validateUserCalledWithInvalidUser_expect_false() {
         User validUser = new User("", "");
 
         UserService userService = new UserService(userRepository);
