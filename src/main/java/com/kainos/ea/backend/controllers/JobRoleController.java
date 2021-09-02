@@ -33,8 +33,6 @@ public class JobRoleController {
             jobRolesService.addJobRole(jobRole);
         } catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Job role created successfully!", HttpStatus.CREATED);
     }

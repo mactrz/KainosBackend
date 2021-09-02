@@ -35,25 +35,24 @@ class JobRoleControllerTest {
         assertEquals(jobRoles, results);
     }
     @Test
-    public void when_AddingNewJobRoleWithCorrectData_expect_ResponseStatusToBe201() throws Exception {
+    public void when_AddingNewJobRoleWithCorrectData_expect_ResponseStatusToBe201() throws IllegalArgumentException {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.CREATED);
         JobRole jobRole = new JobRole();
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
-
         ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRolesService).addJobRole(jobRole);
+
         assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
     @Test
-    public void when_AddingNewJobRoleWithInvalidData_expect_ResponseStatusToBe400() throws Exception {
+    public void when_AddingNewJobRoleWithInvalidData_expect_ResponseStatusToBe400() throws IllegalArgumentException {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         JobRole jobRole = new JobRole();
-        Mockito.doThrow(Exception.class).when(jobRolesService).addJobRole(jobRole);
-
+        Mockito.doThrow(IllegalArgumentException.class).when(jobRolesService).addJobRole(jobRole);
         JobRoleController jobRoleController = new JobRoleController(jobRolesService);
-
         ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRolesService).addJobRole(jobRole);
+
         assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
 }
