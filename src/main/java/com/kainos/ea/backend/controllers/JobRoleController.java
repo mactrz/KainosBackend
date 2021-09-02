@@ -1,7 +1,7 @@
 package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.JobRole;
-import com.kainos.ea.backend.services.JobRolesService;
+import com.kainos.ea.backend.services.JobRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +14,23 @@ import java.util.List;
 @RequestMapping(path = "/job-role")
 public class JobRoleController {
 
-    private JobRolesService jobRolesService;
+    private JobRoleService jobRoleService;
 
     @Autowired
-    public JobRoleController(JobRolesService jobRolesService) {
-        this.jobRolesService = jobRolesService;
+    public JobRoleController(JobRoleService jobRoleService) {
+        this.jobRoleService = jobRoleService;
+    }
+
+    @GetMapping(path = "/band-level")
+    public @ResponseBody
+    List<JobRole> getAllJobRolesSortedByBandName() {
+        return jobRoleService.getAllJobRolesSortByBandName();
     }
 
     @GetMapping("/list-sorted")
     public @ResponseBody
     List<JobRole> getAllJobRolesSortedByCapability(){
-        return jobRolesService.getAllJobRolesSortedByCapability();
+        return jobRoleService.getAllJobRolesSortedByCapability();
     }
 
     @PostMapping("/add")

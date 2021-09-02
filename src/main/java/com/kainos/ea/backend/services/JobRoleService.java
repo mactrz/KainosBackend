@@ -3,7 +3,7 @@ package com.kainos.ea.backend.services;
 import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
-import com.kainos.ea.backend.repositories.JobRolesRepository;
+import com.kainos.ea.backend.repositories.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +13,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class JobRolesService {
-
-    private JobRolesRepository jobRolesRepository;
-    private BandService bandService;
-    private CapabilityService capabilityService;
+public class JobRoleService {
 
     @Autowired
-    public JobRolesService(JobRolesRepository jobRolesRepository, BandService bandService, CapabilityService capabilityService) {
-        this.jobRolesRepository = jobRolesRepository;
-        this.bandService = bandService;
-        this.capabilityService = capabilityService;
+    JobRoleRepository jobRoleRepository;
+
+    // change to list as its simpler
+    public List<JobRole> getAllJobRoles(){
+        return jobRoleRepository.findAll();
     }
 
-    public List<JobRole> getAllJobRolesSortedByCapability() {
-        return jobRolesRepository.findAllByOrderByCapability();
+    public List<JobRole> getAllJobRolesSortByBandName(){
+        return jobRoleRepository.findAllByOrderByBand();
+    }
+  
+    public List<JobRole> getAllJobRolesSortedByCapability(){
+        return jobRoleRepository.findAllByOrderByCapability();
     }
 
     public JobRole saveJobRole(JobRole jobRole) {
