@@ -73,10 +73,6 @@ values
 
 insert into Competency(competencyName)
 values
-('Developing self-awareness'),
-('Managing yourself'),
-('Continuing personal development'),
-('Acting with integrity'),
 ('Mobilises self and others to drive self-improvement'),
 ('Champions continuous improvement'),
 ('Developing networks and building and maintaining relationships'),
