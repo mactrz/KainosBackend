@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface JobRoleRepository extends CrudRepository<JobRole, Integer> {
 
     List<JobRole> findAllByOrderByCapability();
+
+    List<JobRole> findAllByOrderByBand();
 }

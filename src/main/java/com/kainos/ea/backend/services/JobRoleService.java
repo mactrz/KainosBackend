@@ -15,12 +15,21 @@ import java.util.regex.Pattern;
 @Service
 public class JobRoleService {
 
-    @Autowired
+
     JobRoleRepository jobRoleRepository;
+    BandService bandService;
+    CapabilityService capabilityService;
+
+    @Autowired
+    public JobRoleService(JobRoleRepository jobRoleRepository, BandService bandService, CapabilityService capabilityService) {
+        this.jobRoleRepository = jobRoleRepository;
+        this.bandService = bandService;
+        this.capabilityService = capabilityService;
+    }
 
     // change to list as its simpler
     public List<JobRole> getAllJobRoles(){
-        return jobRoleRepository.findAll();
+        return jobRoleRepository.findAllByOrderByCapability();
     }
 
     public List<JobRole> getAllJobRolesSortByBandName(){
@@ -32,7 +41,7 @@ public class JobRoleService {
     }
 
     public JobRole saveJobRole(JobRole jobRole) {
-        return jobRolesRepository.save(jobRole);
+        return jobRoleRepository.save(jobRole);
     }
 
     public void addJobRole(JobRole jobRole) throws IllegalArgumentException {
@@ -42,10 +51,12 @@ public class JobRoleService {
         if (jobRole.getSpecification().length() > 250 || !validateRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
             throw new IllegalArgumentException("Invalid specification!");
         }
+
         Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
         if (band.isEmpty()) {
             throw new IllegalArgumentException("Band with given name does not exist!");
         }
+
         Optional<Capability> capability = capabilityService.getCapabilityByName(jobRole.getCapability().getName());
         if (capability.isEmpty()) {
             throw new IllegalArgumentException("Capability with given name does not exist!");

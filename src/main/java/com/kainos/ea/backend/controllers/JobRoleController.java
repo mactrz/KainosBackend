@@ -36,7 +36,7 @@ public class JobRoleController {
     @PostMapping("/add")
     public ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
         try{
-            jobRolesService.addJobRole(jobRole);
+            jobRoleService.addJobRole(jobRole);
         } catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
