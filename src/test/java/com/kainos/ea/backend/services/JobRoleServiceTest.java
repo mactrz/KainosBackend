@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +29,6 @@ class JobRoleServiceTest {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRolesRepository.findAllByOrderByCapability()).thenReturn(jobRoles);
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
-
         List<JobRole> results = jobRolesService.getAllJobRolesSortedByCapability();
 
         Mockito.verify(jobRolesRepository).findAllByOrderByCapability();
@@ -38,39 +36,37 @@ class JobRoleServiceTest {
     }
 
     @Test
-    public void when_AddingNewJobRoleWithInvalidName_expect_ExceptionWithAppropriateMessage() {
+    public void when_AddingNewJobRoleWithInvalidName_expect_IllegalArgumentExceptionWithAppropriateMessage() {
         JobRole jobRole = new JobRole();
         jobRole.setName("Test!! name");
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
-        assertThrows(Exception.class, () -> jobRolesService.addJobRole(jobRole), "Invalid role name!");
+        assertThrows(IllegalArgumentException.class, () -> jobRolesService.addJobRole(jobRole), "Invalid role name!");
     }
     @Test
-    public void when_AddingNewJobRoleWithInvalidSpecification_expect_ExceptionWithAppropriateMessage(){
+    public void when_AddingNewJobRoleWithInvalidSpecification_expect_IllegalArgumentExceptionWithAppropriateMessage(){
         JobRole jobRole = new JobRole();
         jobRole.setName("Test name");
-        jobRole.setSpecification("Test specifica/'/'/'/tion");
-
+        jobRole.setSpecification("Test specifica???%%%tion");
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
-        assertThrows(Exception.class, () -> jobRolesService.addJobRole(jobRole), "Invalid specification!");
+        assertThrows(IllegalArgumentException.class, () -> jobRolesService.addJobRole(jobRole), "Invalid specification!");
     }
     @Test
-    public void when_AddingNewJobRoleWithInvalidBand_expect_ExceptionWithAppropriateMessage() {
+    public void when_AddingNewJobRoleWithInvalidBand_expect_IllegalArgumentExceptionWithAppropriateMessage() {
         JobRole jobRole = new JobRole();
         jobRole.setName("Test name");
         jobRole.setSpecification("Test specification");
         Band band = new Band();
         band.setName("Name");
-        Mockito.when(bandService.getBandByName("Name")).thenReturn(Optional.of(band));
         jobRole.setBand(band);
-
+        Mockito.when(bandService.getBandByName("Name")).thenReturn(Optional.empty());
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
-        assertThrows(Exception.class, () -> jobRolesService.addJobRole(jobRole), "Invalid specification!");
+        assertThrows(IllegalArgumentException.class, () -> jobRolesService.addJobRole(jobRole), "Band with given name does not exist!");
     }
     @Test
-    public void when_AddingNewJobRoleWithInvalidCapability_expect_ExceptionWithAppropriateMessage(){
+    public void when_AddingNewJobRoleWithInvalidCapability_expect_IllegalArgumentExceptionWithAppropriateMessage(){
         JobRole jobRole = new JobRole();
         jobRole.setName("Test name");
         jobRole.setSpecification("Test specification");
@@ -80,16 +76,15 @@ class JobRoleServiceTest {
         jobRole.setBand(band);
         Capability capability = new Capability();
         capability.setName("Name");
-        Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
-
+        Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.empty());
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
-        assertThrows(Exception.class, () -> jobRolesService.addJobRole(jobRole), "Invalid specification!");
+        assertThrows(IllegalArgumentException.class, () -> jobRolesService.addJobRole(jobRole), "Capability with given name does not exist!");
     }
 
     @Test
-    public void when_ThereIsAnErrorWhenAddingNewJobRoleWithCorrectData_expect_ExceptionWithAppropriateMessage(){
+    public void when_ThereIsAnErrorWhenAddingNewJobRoleWithCorrectData_expect_IllegalArgumentExceptionWithAppropriateMessage(){
         JobRole jobRole = new JobRole();
         jobRole.setName("Test name");
         jobRole.setSpecification("Test specification");
@@ -102,10 +97,9 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRolesRepository.save(jobRole)).thenReturn(null);
-
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
-        assertThrows(Exception.class, () -> jobRolesService.addJobRole(jobRole), "There was an error while adding a job role! Please, try again later.");
+        assertThrows(IllegalArgumentException.class, () -> jobRolesService.addJobRole(jobRole), "There was an error while adding a job role! Please, try again later.");
     }
 
     @Test
@@ -122,7 +116,6 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRolesRepository.save(jobRole)).thenReturn(jobRole);
-
         JobRolesService jobRolesService = new JobRolesService(jobRolesRepository, bandService, capabilityService);
 
         assertDoesNotThrow(() -> jobRolesService.addJobRole(jobRole));
