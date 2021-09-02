@@ -1,8 +1,6 @@
 ![Kainos logo](https://www.kainos.com/globalassets/images/5_logos/kainos_logo.png?mode=crop&width=200)
 # Kainos Academy Project - Spring Backend App (Team E)
 
-## Description
-
 This is a backend application for our HR Management System project created during Kainos Engineering Academy.
 
 ## Requirements
