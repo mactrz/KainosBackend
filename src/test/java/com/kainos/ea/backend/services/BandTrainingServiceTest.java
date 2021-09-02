@@ -29,7 +29,7 @@ public class BandTrainingServiceTest {
         Mockito.when(bandTrainingRepository.findByBandNameOrderByTrainingType("")).thenReturn(bandTrainings);
         BandTrainingService bandTrainingService = new BandTrainingService(bandTrainingRepository);
 
-        List<Training> results = bandTrainingService.getTrainingByBand("");
+        List<Training> results = bandTrainingService.getTrainingByBandSortedByTrainingType("");
         Mockito.verify(bandTrainingRepository).findByBandNameOrderByTrainingType("");
 
         assertEquals(trainings, results);

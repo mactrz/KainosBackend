@@ -21,7 +21,7 @@ public class BandTrainingService {
         this.bandTrainingRepository = bandTrainingRepository;
     }
 
-    public List<Training> getTrainingByBand(String bandName) {
+    public List<Training> getTrainingByBandSortedByTrainingType(String bandName) {
         List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameOrderByTrainingType(bandName);
         List<Training> trainings = new ArrayList<>();
         for (BandTraining bandTraining : bandTrainings) {
