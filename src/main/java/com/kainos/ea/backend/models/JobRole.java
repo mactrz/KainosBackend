@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "JobRole")
