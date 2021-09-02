@@ -35,14 +35,10 @@ public class JobRolesService {
     }
 
     public void addJobRole(JobRole jobRole) throws IllegalArgumentException {
-        Pattern pattern = Pattern.compile("^[A-z][A-z ]+$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(jobRole.getName());
-        if (jobRole.getName().length() > 32 || !matcher.find()) {
+        if (jobRole.getName().length() > 32 || !validateRegex(jobRole.getName(), "^[A-z][A-z ]+$")) {
             throw new IllegalArgumentException("Invalid role name!");
         }
-        pattern = Pattern.compile("^[A-z][0-9A-z '().,/-]{0,249}$", Pattern.CASE_INSENSITIVE);
-        matcher = pattern.matcher(jobRole.getSpecification());
-        if (jobRole.getSpecification().length() > 250 || !matcher.find()) {
+        if (jobRole.getSpecification().length() > 250 || !validateRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
             throw new IllegalArgumentException("Invalid specification!");
         }
         Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
@@ -59,5 +55,11 @@ public class JobRolesService {
         if (savedJobRole == null) {
             throw new IllegalArgumentException("There was an error while adding a job role! Please, try again later.");
         }
+    }
+
+    private boolean validateRegex(String textToBeValidated, String regex){
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(textToBeValidated);
+        return matcher.find();
     }
 }
