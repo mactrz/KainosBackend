@@ -41,6 +41,6 @@ Here, you can find the database schema initialization scripts provided in **sql/
 
 ## Running the application
 
-To start the client app run `mvn spring-boot:run`.
+To start the backend app run `mvn spring-boot:run`.
 
 To run unit tests use `mvn test`.
