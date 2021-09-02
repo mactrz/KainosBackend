@@ -31,6 +31,8 @@ public class JobRoleController {
     public ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
         try{
             jobRolesService.addJobRole(jobRole);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

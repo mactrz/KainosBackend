@@ -34,30 +34,30 @@ public class JobRolesService {
         return jobRolesRepository.save(jobRole);
     }
 
-    public void addJobRole(JobRole jobRole) throws Exception {
+    public void addJobRole(JobRole jobRole) throws IllegalArgumentException {
         Pattern pattern = Pattern.compile("^[A-z][A-z ]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(jobRole.getName());
         if (jobRole.getName().length() > 32 || !matcher.find()) {
-            throw new Exception("Invalid role name!");
+            throw new IllegalArgumentException("Invalid role name!");
         }
         pattern = Pattern.compile("^[A-z][0-9A-z '().,/-]{0,249}$", Pattern.CASE_INSENSITIVE);
-        matcher = pattern.matcher(jobRole.getName());
+        matcher = pattern.matcher(jobRole.getSpecification());
         if (jobRole.getSpecification().length() > 250 || !matcher.find()) {
-            throw new Exception("Invalid specification!");
+            throw new IllegalArgumentException("Invalid specification!");
         }
         Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
         if (band.isEmpty()) {
-            throw new Exception("Band with given name does not exist!");
+            throw new IllegalArgumentException("Band with given name does not exist!");
         }
         Optional<Capability> capability = capabilityService.getCapabilityByName(jobRole.getCapability().getName());
         if (capability.isEmpty()) {
-            throw new Exception("Capability with given name does not exist!");
+            throw new IllegalArgumentException("Capability with given name does not exist!");
         }
         jobRole.setCapability(capability.get());
         jobRole.setBand(band.get());
         JobRole savedJobRole = saveJobRole(jobRole);
         if (savedJobRole == null) {
-            throw new Exception("There was an error while adding a job role! Please, try again later.");
+            throw new IllegalArgumentException("There was an error while adding a job role! Please, try again later.");
         }
     }
 }
