@@ -22,4 +22,8 @@ public class CapabilityService {
         return capabilityRepository.findAll();
     }
     public Optional<Capability> getCapabilityByName(String name) { return capabilityRepository.findById(name); }
+
+    public boolean capabilityExists(String capabilityName) {
+        return !capabilityRepository.findByName(capabilityName).isEmpty();
+    }
 }
