@@ -70,8 +70,8 @@ values
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
 values
-('Apprentice', 'Supporting the strategy and vision', 'Understands the Kainos Vision, Strategy and Principles.', 'Supporting and Delivering the Strategy '),
-('Apprentice', 'Organisational awareness', 'Understands the organisation structure and the purpose of Kainos.', 'Supporting and Delivering the Strategy '),
+('Apprentice', 'Supporting the strategy and vision', 'Understands the Kainos Vision, Strategy and Principles.', 'Supporting and Delivering the Strategy'),
+('Apprentice', 'Organisational awareness', 'Understands the organisation structure and the purpose of Kainos.', 'Supporting and Delivering the Strategy'),
 ('Apprentice', 'Cultural and ethical awareness', 'Possess general knowledge of local cultural differences and familiar with the Kainos policy towards Diversity and Inclusion.', 'Supporting and Delivering the Strategy'),
 ('Trainee', 'Supporting the strategy and vision', 'Recognises how to contribute to the wider organisational objectives and strategic principles.', 'Supporting and Delivering the Strategy'),
 ('Trainee', 'Organisational awareness', 'Pays attention to organisational information, how well we are doing and what is changing.', 'Supporting and Delivering the Strategy'),
@@ -85,3 +85,41 @@ values
 ('Consultant', 'Supporting the strategy and vision', 'Balances own teams needs with wider organisational needs while translating the Vision and Strategy into practical and tangible goals.', 'Supporting and Delivering the Strategy'),
 ('Consultant', 'Organisational awareness', 'Effectively ensures immediate teams understand how their work contributes to and delivers organisational priorities.', 'Supporting and Delivering the Strategy'),
 ('Consultant', 'Cultural and ethical awareness', 'Consistently role models cultural effectiveness in the demonstration of ethical behaviours while understanding the value diversity brings to Kainos. Promoting diversity and inclusion within teams while adapting to the needs of our diverse people.', 'Supporting and Delivering the Strategy');
+
+
+INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
+values
+('Apprentice', 'Demonstrates commercial awareness and behaviours', 'Understands the markets and sectors in which Kainos operates while acknowledging how role links in and has an impact on other teams and the business.', 'Commerciality and Risk'),
+('Apprentice', 'Improves efficiency and effectiveness to drive profitability', 'Wiling to learn, and embrace new ideas, to improve processes and procedures.', 'Commerciality and Risk'),
+('Apprentice', 'Promotes and adheres to Kainos process and policies', 'Cooperates with business processes completing accurately and honestly e.g., timesheets/EOY Review and travel requests.', 'Commerciality and Risk'),
+('Trainee', 'Demonstrates commercial awareness and behaviours', 'Understands how the business generates income. Supporting the business by assisting in activities such as Recruitment events, Career fairs and Work experience mentoring. Keeps up to date with current trends relating to work.', 'Commerciality and Risk'),
+('Trainee', 'Improves efficiency and effectiveness to drive profitability', 'Reviews current practices and constructive in implementing changes to own work.', 'Commerciality and Risk'),
+('Trainee', 'Promotes and adheres to Kainos process and policies', 'Consistently cooperates with business processes completing accurately and honestly e.g., timesheets/EOY Review and travel requests.', 'Commerciality and Risk'),
+('Associate', 'Demonstrates commercial awareness and behaviours', 'Comprehends the need for the business to generate additional income and respects that costs need to be managed. Recognises the contribution that role makes to the success of the business, consistently delivering to task deadlines.', 'Commerciality and Risk'),
+('Associate', 'Improves efficiency and effectiveness to drive profitability', 'Acknowledges what is required to manage costs within the business. Considers and suggests ideas for improvements, sharing this feedback with others in a constructive manner.', 'Commerciality and Risk'),
+('Associate', 'Promotes and adheres to Kainos process and policies', 'Constantly achieves personal productive utilisation targets. Appreciating how the team/project supports increased income for Kainos.', 'Commerciality and Risk'),
+('Senior Associate', 'Demonstrates commercial awareness and behaviours', 'Demonstrates a clear understanding of how the business makes profit and how individual role effects profitability of the company. Respectfully challenges commercial decisions to contribute an increased profitability.', 'Commerciality and Risk'),
+('Senior Associate', 'Improves efficiency and effectiveness to drive profitability', 'Manages and meets the expectations of customers without compromising budgets. Supports change in a constructive manner to help colleagues and stakeholders understand changes and why they have been introduced.', 'Commerciality and Risk'),
+('Senior Associate', 'Promotes and adheres to Kainos process and policies', 'Understands the organisational structure of Kainos, reporting lines and can actively identify where key responsibilities lie.', 'Commerciality and Risk'),
+('Consultant', 'Demonstrates commercial awareness and behaviours', 'Identifies potential new opportunities for Kainos to generate income and proactively takes action to progress. Understanding the commercial implications of changes in scope and negotiate with customers proactively. Able to look beyond the immediate problems/issues to see the impact on the bigger picture.', 'Commerciality and Risk'),
+('Consultant', 'Improves efficiency and effectiveness to drive profitability', 'Uses financial information to find pragmatic new ways of saving cost/effort without reducing output. Review procedures or systems with immediate teams to identify improvements and simplify processes and decision making.', 'Commerciality and Risk'),
+('Consultant', 'Promotes and adheres to Kainos process and policies', 'Recognise the impact of BU and company profitability and supports company decisions that affect +profit. Ensures own team are adhering to policies, processes, and procedures.', 'Commerciality and Risk');
+
+
+INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
+values
+('Apprentice', 'Communicates effectively', 'Acts in a respectful manner in all forms of communication while being open and honest.Displays a positive approach when interacting with others.', 'Communicating and Influence'),
+('Apprentice', 'Influencing others', 'Recognises influencing as a key skill required to work effectively with internal and external customers.', 'Communicating and Influence'),
+('Apprentice', 'Customer Focus and Stakeholder management', 'Acts in accordance with the Kainos values demonstrating through own behaviours and interactions with colleagues and customers.', 'Communicating and Influence'),
+('Trainee', 'Communicates effectively', 'Communicates own views in a clear and constructive manner, while listening to different views and considers all employees from various backgrounds.', 'Communicating and Influence'),
+('Trainee', 'Influencing others', 'Observes team/colleagues influencing internally and externally and understands the benefits of adapting personal style to shape, motivate and influence effectively.', 'Communicating and Influence'),
+('Trainee', 'Customer Focus and Stakeholder management', 'Understands who our customers are and what problems the team is trying to solve.', 'Communicating and Influence'),
+('Associate', 'Communicates effectively', 'Involved at meetings, asking questions, listening and develops and presents a well-reasoned point of view. Remaining communicative and clear in own thoughts and ideas when approached by others, giving consideration to the communication needs of other staff and customers.', 'Communicating and Influence'),
+('Associate', 'Influencing others', 'Demonstrates influencing skills internally and able to communicate points clearly and open to feedback from others.', 'Communicating and Influence'),
+('Associate', 'Customer Focus and Stakeholder management', 'Demonstrates how to participate in stakeholder management, escalates effectively, and strives to provide a quality service and showcase Kainos positively.', 'Communicating and Influence'),
+('Senior Associate', 'Communicates effectively', 'Recognises and respect that communication is a two-way process and demonstrate effective questioning and active listening skills to achieve this. Confidently handles challenging conversations and is clear and constructive in response.', 'Communicating and Influence'),
+('Senior Associate', 'Influencing others', 'Persuades and influences with sound rationale argument ‘appealing to others’ interest or reason to gain support.', 'Communicating and Influence'),
+('Senior Associate', 'Customer Focus and Stakeholder management', 'Authentic in stakeholder relationships and take pride in being inclusive and trustworthy while keeping promises made with customers. Responds honestly and promptly to customer requests and whenever possible within agreed timeframes.', 'Communicating and Influence'),
+('Consultant', 'Communicates effectively', 'Uses communication to create a shared sense of purpose and direction. Adapting own style to effectively communicate and able to demonstrate this when difficult conversations have a positive outcome.', 'Communicating and Influence'),
+('Consultant', 'Influencing others', 'Acts as an influential and effective member of multi-disciplinary teams or projects. Initiate’s collaboration and actively encourages people to cooperate in initiatives where they can add value.', 'Communicating and Influence'),
+('Consultant', 'Customer Focus and Stakeholder management', 'Assesses customer needs accurately by listening and applying sensitive questioning. Managing customer expectations in relation to scope of work and are honest in what can and cannot be achieved within timescales. Confident in negotiating with customers to reflect changes in scope of work.', 'Communicating and Influence');
