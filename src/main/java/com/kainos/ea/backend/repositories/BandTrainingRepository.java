@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BandTrainingRepository extends CrudRepository<BandTraining, Short> {
 
-    List<BandTraining> findByBandName(String bandName);
+    List<BandTraining> findByBandNameOrderByTrainingType(String bandName);
 }

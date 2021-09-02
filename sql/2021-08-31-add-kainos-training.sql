@@ -1,4 +1,25 @@
 DELETE FROM Training WHERE 1=1;
+DROP TABLE BandTraining;
+DROP TABLE Training;
+
+CREATE TABLE `Training` (
+  `trainingID` smallint NOT NULL AUTO_INCREMENT,
+  `trainingName` varchar(255) NOT NULL,
+  `trainingType` enum('DEVELOPMENT_PROGRAMME','PROFESSIONAL_SKILLS','TECHNICAL_SKILLS') NOT NULL,
+  `sharepointURL` varchar(150) NOT NULL,
+  PRIMARY KEY (`trainingID`)
+);
+
+CREATE TABLE `BandTraining` (
+  `bandTrainingID` smallint NOT NULL AUTO_INCREMENT,
+  `bandName` varchar(50) NOT NULL,
+  `trainingID` smallint NOT NULL,
+  PRIMARY KEY (`bandTrainingID`),
+  KEY `bandName` (`bandName`),
+  KEY `trainingID` (`trainingID`),
+  CONSTRAINT `BandTraining_ibfk_1` FOREIGN KEY (`bandName`) REFERENCES `Band` (`bandName`) ON DELETE CASCADE,
+  CONSTRAINT `BandTraining_ibfk_2` FOREIGN KEY (`trainingID`) REFERENCES `Training` (`trainingID`) ON DELETE CASCADE
+);
 
 INSERT INTO Training VALUES (1, 'Mindset Modules', 'PROFESSIONAL_SKILLS', 'https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Mindset.aspx');
 INSERT INTO Training VALUES (2, 'Virtual Effective Manager Series', 'PROFESSIONAL_SKILLS', 'https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Effective-Manager.aspx');
