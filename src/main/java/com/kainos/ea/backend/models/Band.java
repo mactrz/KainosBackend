@@ -1,8 +1,6 @@
 package com.kainos.ea.backend.models;
 
 import javax.persistence.*;
-import java.util.Set;
-
 import java.util.Objects;
 
 @Entity

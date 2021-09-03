@@ -1,7 +1,5 @@
 package com.kainos.ea.backend.controllers;
 
-import com.kainos.ea.backend.models.Band;
-import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.services.JobRoleService;
 import org.junit.jupiter.api.Test;
