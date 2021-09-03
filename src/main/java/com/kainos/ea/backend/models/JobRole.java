@@ -24,7 +24,7 @@ public class JobRole {
     private String sharepointUrl;
 
     @Column(name = "responsibilites")
-    private String responsibilites;
+    private String responsibilites = "Responsibilities not provided yet";
 
     @ManyToOne
     @JoinColumn(name = "capabilityName")

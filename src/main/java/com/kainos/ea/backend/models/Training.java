@@ -7,9 +7,9 @@ import javax.persistence.*;
 public class Training {
 
     public enum TrainingType {
+        DEVELOPMENT_PROGRAMME,
         PROFESSIONAL_SKILLS,
-        TECHNICAL_SKILLS,
-        DEVELOPMENT_PROGRAMME
+        TECHNICAL_SKILLS
     }
 
     @Id

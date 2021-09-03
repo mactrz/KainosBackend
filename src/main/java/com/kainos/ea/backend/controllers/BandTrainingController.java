@@ -24,7 +24,7 @@ public class BandTrainingController {
 
     @GetMapping("")
     public @ResponseBody
-    List<Training> getTrainingByBand(@RequestParam String bandName) {
-        return bandTrainingService.getTrainingByBand(bandName);
+    List<Training> getTrainingByBandSortedByTrainingType(@RequestParam String bandName) {
+        return bandTrainingService.getTrainingByBandSortedByTrainingType(bandName);
     }
 }

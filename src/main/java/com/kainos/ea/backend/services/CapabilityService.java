@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CapabilityService {
@@ -34,4 +35,7 @@ public class CapabilityService {
     public boolean capabilityExists(String capabilityName) {
         return !capabilityRepository.findByName(capabilityName).isEmpty();
     }
+
+    public Optional<Capability> getCapabilityByName(String name) { return capabilityRepository.findById(name); }
+
 }
