@@ -33,8 +33,8 @@ public class JobRoleController {
         return jobRoleService.getAllJobRolesSortedByCapability();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
+    @PostMapping(path = "/add")
+    public @ResponseBody ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
         try{
             jobRoleService.addJobRole(jobRole);
         } catch (IllegalArgumentException e){
