@@ -18,12 +18,16 @@ public class BandTraining {
     @JoinColumn(name = "trainingID")
     private Training training;
 
+    @Column(name = "recommended")
+    private boolean recommended;
+
     public BandTraining() {}
 
-    public BandTraining(short id, Band band, Training training) {
+    public BandTraining(short id, Band band, Training training, boolean recommended) {
         this.id = id;
         this.band = band;
         this.training = training;
+        this.recommended = recommended;
     }
 
     public short getId() {
@@ -50,12 +54,21 @@ public class BandTraining {
         this.training = training;
     }
 
+    public boolean isRecommended() {
+        return recommended;
+    }
+
+    public void setRecommended(boolean recommended) {
+        this.recommended = recommended;
+    }
+
     @Override
     public String toString() {
         return "BandTraining{" +
                 "id=" + id +
                 ", band=" + band +
                 ", training=" + training +
+                ", recommended=" + recommended +
                 '}';
     }
 }

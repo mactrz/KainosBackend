@@ -25,7 +25,7 @@ public class BandTrainingServiceTest {
         Band band = new Band();
         Training training = new Training();
         List<Training> trainings = List.of(training);
-        List<BandTraining> bandTrainings = List.of(new BandTraining((short) 0, band, training));
+        List<BandTraining> bandTrainings = List.of(new BandTraining((short) 0, band, training, true));
         Mockito.when(bandTrainingRepository.findByBandNameOrderByTrainingType("")).thenReturn(bandTrainings);
         BandTrainingService bandTrainingService = new BandTrainingService(bandTrainingRepository);
 
