@@ -23,15 +23,19 @@ public class Training {
     @Enumerated(EnumType.STRING)
     private TrainingType type;
 
+    @Column(name = "recommended")
+    private boolean recommended;
+
     @Column(name = "sharepointURL")
     private String sharepointURL;
 
     public Training() {}
 
-    public Training(short trainingID, String trainingName, TrainingType trainingType, String sharepointURL) {
+    public Training(short trainingID, String trainingName, TrainingType trainingType, boolean recommended, String sharepointURL) {
         this.ID = trainingID;
         this.name = trainingName;
         this.type = trainingType;
+        this.recommended = recommended;
         this.sharepointURL = sharepointURL;
     }
 
@@ -51,6 +55,14 @@ public class Training {
         this.type = type;
     }
 
+    public boolean isRecommended() {
+        return recommended;
+    }
+
+    public void setRecommended(boolean recommended) {
+        this.recommended = recommended;
+    }
+
     public String getSharepointURL() {
         return sharepointURL;
     }
@@ -62,9 +74,10 @@ public class Training {
     @Override
     public String toString() {
         return "Training{" +
-                "trainingID=" + ID +
-                ", trainingName='" + name + '\'' +
-                ", trainingType=" + type +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", recommended=" + recommended +
                 ", sharepointURL='" + sharepointURL + '\'' +
                 '}';
     }
