@@ -1,0 +1,1 @@
+ALTER TABLE BandTraining ADD COLUMN recommended BOOLEAN;
