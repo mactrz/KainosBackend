@@ -47,19 +47,15 @@ class JobRoleServiceTest {
 
     @Test
     public void when_DeletingJobRole_expect_RepositoryCalledPassback() {
-        JobRole jobRole = new JobRole();
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+        jobRoleService.deleteJobRole(1);
 
-        jobRoleService.deleteJobRole(jobRole);
-
-        Mockito.verify(jobRoleRepository).delete(jobRole);
+        Mockito.verify(jobRoleRepository).deleteById(1);
     }
 
     @Test
     public void when_AddingNewJobRoleWithInvalidName_expect_IllegalArgumentExceptionWithAppropriateMessage() {
         JobRole jobRole = new JobRole();
         jobRole.setName("Test!! name");
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Invalid role name!");
     }
@@ -81,7 +77,6 @@ class JobRoleServiceTest {
         band.setName("Name");
         jobRole.setBand(band);
         Mockito.when(bandService.getBandByName("Name")).thenReturn(Optional.empty());
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Band with given name does not exist!");
     }
@@ -98,7 +93,6 @@ class JobRoleServiceTest {
         capability.setName("Name");
         jobRole.setCapability(capability);
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.empty());
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Capability with given name does not exist!");
     }
@@ -117,7 +111,6 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRoleRepository.save(jobRole)).thenReturn(null);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "There was an error while adding a job role! Please, try again later.");
     }
@@ -136,7 +129,6 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRoleRepository.save(jobRole)).thenReturn(jobRole);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertDoesNotThrow(() -> jobRoleService.addJobRole(jobRole));
     }

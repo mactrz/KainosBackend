@@ -2,6 +2,7 @@ package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.services.JobRoleService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -19,11 +20,17 @@ class JobRoleControllerTest {
     @Mock
     private JobRoleService jobRoleService;
 
+    private JobRoleController jobRoleController;
+
+    @BeforeEach
+    public void setUp() {
+        jobRoleController = new JobRoleController(jobRoleService);
+    }
+
     @Test
     public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback() {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleService.getAllJobRolesSortByBandName()).thenReturn(jobRoles);
-        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
 
         List<JobRole> results = jobRoleController.getAllJobRolesSortedByBandName();
         // check if the service has been called
@@ -37,8 +44,6 @@ class JobRoleControllerTest {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleService.getAllJobRolesSortedByCapability()).thenReturn(jobRoles);
 
-        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
-
         List<JobRole> results = jobRoleController.getAllJobRolesSortedByCapability();
         // check if the service has been called
         Mockito.verify(jobRoleService).getAllJobRolesSortedByCapability();
@@ -47,20 +52,20 @@ class JobRoleControllerTest {
     }
 
     @Test
-    public void when_DeletingJobRole_expect_ServiceCalledPassback() {
-        JobRole jobRole = new JobRole();
-        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
+    public void when_DeletingJobRole_expect_ServiceCalledPassbackAndResponseStatusToBe200() {
+        ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.OK);
 
-        jobRoleController.deleteJobRole(jobRole);
+        ResponseEntity<Object> result = jobRoleController.deleteJobRole(1);
+        Mockito.verify(jobRoleService).deleteJobRole(1);
 
-        Mockito.verify(jobRoleService).deleteJobRole(jobRole);
+        assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
 
     @Test
     public void when_AddingNewJobRoleWithCorrectData_expect_ResponseStatusToBe201() throws IllegalArgumentException {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.CREATED);
         JobRole jobRole = new JobRole();
-        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
+
         ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRoleService).addJobRole(jobRole);
 
@@ -72,7 +77,7 @@ class JobRoleControllerTest {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         JobRole jobRole = new JobRole();
         Mockito.doThrow(IllegalArgumentException.class).when(jobRoleService).addJobRole(jobRole);
-        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
+
         ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
         Mockito.verify(jobRoleService).addJobRole(jobRole);
 

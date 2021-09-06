@@ -69,8 +69,8 @@ public class JobRoleService {
         }
     }
 
-    public void deleteJobRole(JobRole jobRole) {
-        jobRoleRepository.delete(jobRole);
+    public void deleteJobRole(int id) {
+        jobRoleRepository.deleteById(id);
     }
 
     private boolean violatesRegex(String textToBeValidated, String regex){
