@@ -27,7 +27,7 @@ public class JobRoleController {
         return jobRoleService.getAllJobRolesSortByBandName();
     }
 
-    @GetMapping("/list-sorted")
+    @GetMapping(path = "/list-sorted")
     public @ResponseBody
     List<JobRole> getAllJobRolesSortedByCapability(){
         return jobRoleService.getAllJobRolesSortedByCapability();
@@ -41,5 +41,10 @@ public class JobRoleController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Job role created successfully!", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "")
+    public void deleteJobRole(@RequestBody JobRole jobRole) {
+        jobRoleService.deleteJobRole(jobRole);
     }
 }

@@ -20,7 +20,7 @@ class JobRoleControllerTest {
     private JobRoleService jobRoleService;
 
     @Test
-    public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback(){
+    public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback() {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleService.getAllJobRolesSortByBandName()).thenReturn(jobRoles);
         JobRoleController jobRoleController = new JobRoleController(jobRoleService);
@@ -33,7 +33,7 @@ class JobRoleControllerTest {
     }
 
     @Test
-    public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback(){
+    public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback() {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleService.getAllJobRolesSortedByCapability()).thenReturn(jobRoles);
 
@@ -45,6 +45,17 @@ class JobRoleControllerTest {
 
         assertEquals(jobRoles, results);
     }
+
+    @Test
+    public void when_DeletingJobRole_expect_ServiceCalledPassback() {
+        JobRole jobRole = new JobRole();
+        JobRoleController jobRoleController = new JobRoleController(jobRoleService);
+
+        jobRoleController.deleteJobRole(jobRole);
+
+        Mockito.verify(jobRoleService).deleteJobRole(jobRole);
+    }
+
     @Test
     public void when_AddingNewJobRoleWithCorrectData_expect_ResponseStatusToBe201() throws IllegalArgumentException {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.CREATED);
@@ -55,6 +66,7 @@ class JobRoleControllerTest {
 
         assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
+
     @Test
     public void when_AddingNewJobRoleWithInvalidData_expect_ResponseStatusToBe400() throws IllegalArgumentException {
         ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
