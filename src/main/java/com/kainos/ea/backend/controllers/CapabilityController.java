@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping(path = "/capability")
 public class CapabilityController {
 
-    private CapabilityService capabilityService;
+    private final CapabilityService capabilityService;
 
     @Autowired
     public CapabilityController(CapabilityService capabilityService) {

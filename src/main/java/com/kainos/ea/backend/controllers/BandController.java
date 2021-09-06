@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/band")
 public class BandController {
 
-    private BandService bandService;
+    private final BandService bandService;
 
     @Autowired
     public BandController(BandService bandService) { this.bandService = bandService; }

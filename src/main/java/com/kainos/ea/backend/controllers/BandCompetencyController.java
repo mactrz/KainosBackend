@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping(path="/")
 public class BandCompetencyController {
 
-    private BandCompetencyService bandCompetencyService;
+    private final BandCompetencyService bandCompetencyService;
 
     @Autowired
     public BandCompetencyController(BandCompetencyService bandCompetencyService) {

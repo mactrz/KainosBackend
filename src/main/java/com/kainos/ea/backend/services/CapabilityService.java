@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class CapabilityService {
 
-    private CapabilityRepository capabilityRepository;
+    private final CapabilityRepository capabilityRepository;
 
     @Autowired
     public CapabilityService(CapabilityRepository capabilityRepository) {

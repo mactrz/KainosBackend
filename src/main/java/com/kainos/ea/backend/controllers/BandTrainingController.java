@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping(path = "/band-training")
 public class BandTrainingController {
 
-    private BandTrainingService bandTrainingService;
+    private final BandTrainingService bandTrainingService;
 
     @Autowired
     public BandTrainingController(BandTrainingService bandTrainingService) {

@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.StreamSupport.stream;
-
 @Service
 public class BandTrainingService {
 
-    private BandTrainingRepository bandTrainingRepository;
+    private final BandTrainingRepository bandTrainingRepository;
 
     @Autowired
     public BandTrainingService(BandTrainingRepository bandTrainingRepository) {

@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 public class JobFamilyController {
 
-    private JobFamilyService jobFamilyService;
+    private final JobFamilyService jobFamilyService;
 
     @Autowired
     public JobFamilyController(JobFamilyService jobFamilyService) {

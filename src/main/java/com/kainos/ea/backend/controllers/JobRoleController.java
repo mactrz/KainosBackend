@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/job-role")
 public class JobRoleController {
 
-    private JobRoleService jobRoleService;
+    private final JobRoleService jobRoleService;
 
     @Autowired
     public JobRoleController(JobRoleService jobRoleService) {

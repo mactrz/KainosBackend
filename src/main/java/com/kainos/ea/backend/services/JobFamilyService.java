@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class JobFamilyService {
 
-    private JobFamilyRepository jobFamilyRepository;
+    private final JobFamilyRepository jobFamilyRepository;
 
     @Autowired
     public JobFamilyService(JobFamilyRepository jobFamilyRepository) {
