@@ -27,13 +27,17 @@ public class JobFamilyService {
     }
 
     public JobFamily addJobFamily(JobFamily jobFamily) throws InvalidNameException, InstanceAlreadyExistsException {
+        validateJobFamily(jobFamily);
+        return jobFamilyRepository.save(jobFamily);
+    }
+
+    private void validateJobFamily(JobFamily jobFamily) throws InvalidNameException, InstanceAlreadyExistsException {
         if (!capabilityService.capabilityExists(jobFamily.getCapability().getName()))
             throw new CapabilityDoesNotExistException();
         if (!isAlphanumeric(jobFamily.getName()))
             throw new InvalidNameException("Only alphanumeric characters are allowed in the job family name");
         if (jobFamilyExists(jobFamily.getName(), jobFamily.getCapability().getName()))
             throw new InstanceAlreadyExistsException();
-        return jobFamilyRepository.save(jobFamily);
     }
 
     private boolean isAlphanumeric(String string) {
