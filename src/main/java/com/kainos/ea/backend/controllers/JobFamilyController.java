@@ -39,4 +39,5 @@ public class JobFamilyController {
         return new ResponseEntity<>("Job Family edited successfully!", HttpStatus.OK);
     }
 
+
 }

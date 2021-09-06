@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,6 +26,8 @@ public class JobFamilyService {
     }
 
     public void updateJobFamilyName(String jobFamilyName, String newJobFamilyName) throws NoSuchElementException {
+        if (!isAlphanumeric(newJobFamilyName) || !isAlphanumeric(jobFamilyName))
+            throw new InvalidParameterException("Only alphanumeric characters are allowed in the job family name");
         JobFamily jobFamily = jobFamilyRepository.findById(jobFamilyName).orElseThrow();
         Capability capabilityName = jobFamily.getCapability();
         JobFamily newJobFamily = new JobFamily();
@@ -32,6 +35,10 @@ public class JobFamilyService {
         newJobFamily.setCapability(capabilityName);
         jobFamilyRepository.deleteById(jobFamilyName);
         jobFamilyRepository.save(newJobFamily);
+    }
+
+    private boolean isAlphanumeric(String string) {
+        return string.matches("[A-Za-z0-9 ]+");
     }
 
 }
