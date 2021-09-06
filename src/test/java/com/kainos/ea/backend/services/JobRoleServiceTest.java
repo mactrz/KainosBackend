@@ -4,11 +4,14 @@ import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.repositories.JobRoleRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,15 +27,32 @@ class JobRoleServiceTest {
     @Mock
     private BandService bandService;
 
+    private JobRoleService jobRoleService;
+
+    @BeforeEach
+    public void setUp() {
+        jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+    }
+
     @Test
-    public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback(){
+    public void when_QueryingAllJobRolesSortedByCapability_expect_RepositoryCalledPassback() {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleRepository.findAllByOrderByCapability()).thenReturn(jobRoles);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+
         List<JobRole> results = jobRoleService.getAllJobRolesSortedByCapability();
 
         Mockito.verify(jobRoleRepository).findAllByOrderByCapability();
         assertEquals(jobRoles, results);
+    }
+
+    @Test
+    public void when_DeletingJobRole_expect_RepositoryCalledPassback() {
+        JobRole jobRole = new JobRole();
+        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+
+        jobRoleService.deleteJobRole(jobRole);
+
+        Mockito.verify(jobRoleRepository).delete(jobRole);
     }
 
     @Test

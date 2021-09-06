@@ -45,10 +45,10 @@ public class JobRoleService {
     }
 
     public void addJobRole(JobRole jobRole) throws IllegalArgumentException {
-        if (jobRole.getName().length() > 32 || !validateRegex(jobRole.getName(), "^[A-z][A-z ]+$")) {
+        if (jobRole.getName().length() > 32 || violatesRegex(jobRole.getName(), "^[A-z][A-z ]+$")) {
             throw new IllegalArgumentException("Invalid role name!");
         }
-        if (jobRole.getSpecification().length() > 250 || !validateRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
+        if (jobRole.getSpecification().length() > 250 || violatesRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
             throw new IllegalArgumentException("Invalid specification!");
         }
 
@@ -69,9 +69,13 @@ public class JobRoleService {
         }
     }
 
-    private boolean validateRegex(String textToBeValidated, String regex){
+    public void deleteJobRole(JobRole jobRole) {
+        jobRoleRepository.delete(jobRole);
+    }
+
+    private boolean violatesRegex(String textToBeValidated, String regex){
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(textToBeValidated);
-        return matcher.find();
+        return !matcher.find();
     }
 }
