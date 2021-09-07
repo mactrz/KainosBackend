@@ -35,6 +35,7 @@ spring.datasource.password=supersecretpassword123
 spring.datasource.driver-class-name =com.mysql.jdbc.Driver
 spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 spring.jpa.show-sql: true
+backend.apikey=my_secure_api_key
 ```
 Next, make sure you are in the root directory (the one with **pom.xml** file).
 Here, you can find the database schema initialization scripts provided in **sql/** directory and run the application using commands shown below.
