@@ -9,13 +9,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 public class CapabilityServiceTest {
@@ -101,5 +103,22 @@ public class CapabilityServiceTest {
         Mockito.verify(capabilityRepository).findByName(capabilityName);
 
         Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void when_deleteInvalidCapability_expect_ThrowsException() {
+        doThrow(EmptyResultDataAccessException.class).when(capabilityRepository).deleteById("");
+        CapabilityService capabilityService = new CapabilityService(capabilityRepository);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> capabilityService.deleteCapability(""), "Should " +
+                "throw EmptyResultDataAccessException");
+    }
+
+    @Test
+    public void when_deleteCapability_expect_DoesNotThrowException() {
+        doNothing().when(capabilityRepository).deleteById("");
+        CapabilityService capabilityService = new CapabilityService(capabilityRepository);
+
+        assertDoesNotThrow(() -> capabilityService.deleteCapability(""), "Should not throw an exception");
     }
 }

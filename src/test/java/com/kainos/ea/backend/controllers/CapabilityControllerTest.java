@@ -9,6 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
@@ -16,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 class CapabilityControllerTest {
@@ -83,5 +87,28 @@ class CapabilityControllerTest {
         Mockito.verify(capabilityService).capabilityExists(capabilityName);
 
         assertTrue(result);
+    }
+
+    @Test
+    public void when_deleteCapability_expect_ServiceCalledPassback() {
+        CapabilityController capabilityController = new CapabilityController(capabilityService);
+
+        ResponseEntity<Object> expected = new ResponseEntity<>("Capability successfully deleted.", HttpStatus.OK);
+        ResponseEntity<Object> result = capabilityController.deleteCapability("");
+
+        Mockito.verify(capabilityService).deleteCapability("");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void when_deleteInvalidCapability_expect_ResponseStatusToBe404() {
+        CapabilityController capabilityController = new CapabilityController(capabilityService);
+        doThrow(EmptyResultDataAccessException.class).when(capabilityService).deleteCapability("");
+
+        ResponseEntity<Object> expected = new ResponseEntity<>("No such capability exists!", HttpStatus.NOT_FOUND);
+        ResponseEntity<Object> result = capabilityController.deleteCapability("");
+
+        Mockito.verify(capabilityService).deleteCapability("");
+        assertEquals(expected, result);
     }
 }
