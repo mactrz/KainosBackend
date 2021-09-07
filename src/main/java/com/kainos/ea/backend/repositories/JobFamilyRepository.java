@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface JobFamilyRepository extends CrudRepository<JobFamily, String> {
     List<JobFamily> findByCapabilityName(String capabilityName);
+
+    List<JobFamily> findByNameAndCapabilityName(String jobFamilyName, String capabilityName);
 }
