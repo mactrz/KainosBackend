@@ -36,7 +36,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_getUsersCalled_expect_listOfUsers() {
+    public void when_CallingGetUsers_expect_listOfUsers() {
         Mockito.when(userRepository.findAll()).thenReturn(users);
 
         List<User> result = userService.getUsers();
@@ -46,63 +46,63 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validatePasswordCalledWithValidPassword_expect_true() {
+    public void when_CallingValidatePasswordWithValidPassword_expect_true() {
         Boolean result = userService.validatePassword("strong_password");
 
         assertTrue(result);
     }
 
     @Test
-    public void when_validatePasswordCalledWithTooShortPassword_expect_false() {
+    public void when_CallingValidatePasswordWithTooShortPassword_expect_false() {
         Boolean result = userService.validatePassword("asd");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validatePasswordCalledWithNoLettersPassword_expect_false() {
+    public void when_CallingValidatePasswordWithNoLettersPassword_expect_false() {
         Boolean result = userService.validatePassword("123");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validatePasswordCalledWithEmptyPassword_expect_false() {
+    public void when_CallingValidatePasswordWithEmptyPassword_expect_false() {
         Boolean result = userService.validatePassword("123");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validateUsernameCalledWithValidUsername_expect_true() {
+    public void when_CallingValidateUsernameWithValidUsername_expect_true() {
         Boolean result = userService.validateUsername("mail@kainos.com");
 
         assertTrue(result);
     }
 
     @Test
-    public void when_validateUsernameCalledWithNoAt_expect_false() {
+    public void when_CallingValidateUsernameWithNoAt_expect_false() {
         Boolean result = userService.validateUsername("mailkainos.com");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validateUsernameCalledWithNoDomain_expect_false() {
+    public void when_CallingValidateUsernameWithNoDomain_expect_false() {
         Boolean result = userService.validateUsername("mail@.com");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validateUsernameCalledWithNoName_expect_false() {
+    public void when_CallingValidateUsernameWithNoName_expect_false() {
         Boolean result = userService.validateUsername("@kainos.com");
 
         assertFalse(result);
     }
 
     @Test
-    public void when_validateUserCalledWithValidUser_expect_true() {
+    public void when_CallingValidateUserWithValidUser_expect_true() {
         User validUser = new User("mail@kainos.com", "strong_password");
 
         Boolean result = userService.validateUserData(validUser.getUsername(), validUser.getPassword());
@@ -111,7 +111,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_validateUserCalledWithInvalidUser_expect_false() {
+    public void when_CallingValidateUserWithInvalidUser_expect_false() {
         User validUser = new User("", "");
 
         Boolean result = userService.validateUserData(validUser.getUsername(), validUser.getPassword());
@@ -120,7 +120,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_doCredentialMatchCalledWithMatchingCredentials_expect_true() {
+    public void when_CallingDoCredentialMatchWithMatchingCredentials_expect_true() {
         Mockito.when(userRepository.findByUsername(users.get(0).getUsername())).thenReturn(Optional.of(users.get(0)));
         Mockito.when(passwordEncoder.matches("strong_password", "strong_password")).thenReturn(true);
         UserService newUserService = new UserService(userRepository);
@@ -130,7 +130,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_doCredentialMatchCalledWithBadUsername_expect_false() {
+    public void when_CallingDoCredentialMatchWithBadUsername_expect_false() {
         Mockito.when(userRepository.findByUsername(users.get(1).getUsername())).thenReturn(null);
         UserService newUserService = new UserService(userRepository);
         User result = newUserService.authenticateUser("maillll@email.com", "strong_password", passwordEncoder);
@@ -139,7 +139,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void when_doCredentialMatchCalledWithBadPassword_expect_false() {
+    public void when_CallingDoCredentialMatchWithBadPassword_expect_false() {
         Mockito.when(userRepository.findAll()).thenReturn(users);
         Mockito.when(passwordEncoder.matches("strong_passworddd", "strong_password")).thenReturn(false);
 
