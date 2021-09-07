@@ -143,18 +143,17 @@ class JobFamilyServiceTest {
 
         Assertions.assertFalse(result);
     }
-  
-    void when_deleteInvalidJobFamily_expect_ThrowsException() {
+
+    @Test
+    void when_DeletingInvalidJobFamily_expect_ThrowsException() {
         doThrow(EmptyResultDataAccessException.class).when(jobFamilyRepository).deleteById("");
-        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
 
         assertThrows(EmptyResultDataAccessException.class, () -> jobFamilyService.deleteJobFamily(""), "Should throw EmptyResultDataAccessException");
     }
 
     @Test
-    void when_deleteJobFamily_expect_DoesNotThrowException() {
+    void when_DeletingJobFamily_expect_DoesNotThrowException() {
         doNothing().when(jobFamilyRepository).deleteById("");
-        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
 
         assertDoesNotThrow(() -> jobFamilyService.deleteJobFamily(""), "Should" +
                 " not throw an exception");
