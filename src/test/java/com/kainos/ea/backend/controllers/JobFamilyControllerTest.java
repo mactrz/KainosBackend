@@ -49,8 +49,7 @@ class JobFamilyControllerTest {
 
     @Test
     public void when_QueryingUpdateJobFamilyNameWithNonexistentJobFamily_expect_ServiceThrowsException() throws NoSuchElementException {
-        Mockito
-                .doThrow(NoSuchElementException.class)
+        Mockito.doThrow(NoSuchElementException.class)
                 .when(jobFamilyService).updateJobFamilyName("Unknown", "New name");
 
         ResponseEntity<Object> result = jobFamilyController.updateJobFamilyName("Unknown", "New name");
@@ -60,7 +59,6 @@ class JobFamilyControllerTest {
 
     @Test
     public void when_QueryingUpdateJobFamilyName_expect_ServiceReturnsResponseCodeOK() {
-
         ResponseEntity<Object> result = jobFamilyController.updateJobFamilyName("Unknown", "New name");
 
         assertEquals(result.getStatusCodeValue(), 200);
