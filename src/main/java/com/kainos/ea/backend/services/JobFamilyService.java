@@ -5,6 +5,7 @@ import com.kainos.ea.backend.models.JobFamily;
 import com.kainos.ea.backend.repositories.JobFamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
@@ -41,4 +42,7 @@ public class JobFamilyService {
         return string.matches("[A-Za-z0-9 ]+");
     }
 
+    public void deleteJobFamily(String jobFamilyName) throws EmptyResultDataAccessException {
+        jobFamilyRepository.deleteById(jobFamilyName);
+    }
 }

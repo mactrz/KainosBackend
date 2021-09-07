@@ -24,7 +24,9 @@ public class BandTrainingController {
 
     @GetMapping("")
     public @ResponseBody
-    List<Training> getTrainingByBandSortedByTrainingType(@RequestParam String bandName) {
-        return bandTrainingService.getTrainingByBandSortedByTrainingType(bandName);
+    List<Training> getTrainingByBandSortedByTrainingType(@RequestParam String bandName, @RequestParam boolean recommended) {
+        if (recommended)
+            return bandTrainingService.getRecommendedTrainingByBandSortedByTrainingType(bandName);
+        return bandTrainingService.getNonRecommendedTrainingByBandSortedByTrainingType(bandName);
     }
 }

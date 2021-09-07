@@ -8,11 +8,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 class JobFamilyServiceTest {
@@ -29,7 +35,7 @@ class JobFamilyServiceTest {
     }
 
     @Test
-    void when_getJobFamiliesByCapabilityName_expect_RepositoryCalledPassback() {
+    void when_GettingJobFamiliesByCapabilityName_expect_RepositoryCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
         Mockito.when(jobFamilyRepository.findByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
@@ -41,7 +47,7 @@ class JobFamilyServiceTest {
     }
 
     @Test
-    public void when_updateJobFamilyName_expect_RepositoryCalledPassbackFind() {
+    public void when_UpdatingJobFamilyName_expect_RepositoryCalledPassbackFind() {
         Mockito.when(jobFamilyRepository.findById("Name")).thenReturn(Optional.of(jobFamily));
 
         jobFamilyService.updateJobFamilyName("Name", "Name");
@@ -50,7 +56,7 @@ class JobFamilyServiceTest {
     }
 
     @Test
-    public void when_updateJobFamilyName_expect_RepositoryCalledPassbackDelete() {
+    public void when_UpdatingJobFamilyName_expect_RepositoryCalledPassbackDelete() {
         Mockito.when(jobFamilyRepository.findById("Name")).thenReturn(Optional.of(jobFamily));
 
         jobFamilyService.updateJobFamilyName("Name", "New Name");
@@ -60,4 +66,20 @@ class JobFamilyServiceTest {
         Mockito.verify(jobFamilyRepository).deleteById("Name");
     }
 
+    @Test
+    void when_DeletingInvalidJobFamily_expect_ThrowsException() {
+        doThrow(EmptyResultDataAccessException.class).when(jobFamilyRepository).deleteById("");
+        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> jobFamilyService.deleteJobFamily(""), "Should throw EmptyResultDataAccessException");
+    }
+
+    @Test
+    void when_DeletingJobFamily_expect_DoesNotThrowException() {
+        doNothing().when(jobFamilyRepository).deleteById("");
+        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
+
+        assertDoesNotThrow(() -> jobFamilyService.deleteJobFamily(""), "Should" +
+                " not throw an exception");
+    }
 }

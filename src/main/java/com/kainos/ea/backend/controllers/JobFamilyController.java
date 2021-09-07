@@ -3,6 +3,7 @@ package com.kainos.ea.backend.controllers;
 import com.kainos.ea.backend.models.JobFamily;
 import com.kainos.ea.backend.services.JobFamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,5 +40,14 @@ public class JobFamilyController {
         return new ResponseEntity<>("Job Family edited successfully!", HttpStatus.OK);
     }
 
-
+    @DeleteMapping(path = "")
+    @ResponseBody
+    public ResponseEntity<Object> deleteJobFamily(@RequestParam String jobFamilyName) {
+        try {
+            jobFamilyService.deleteJobFamily(jobFamilyName);
+        } catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<>("No such job family exists!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Job family deleted successfully.", HttpStatus.OK);
+    }
 }
