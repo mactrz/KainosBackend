@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface CapabilityRepository extends CrudRepository<Capability, String> {
     List<Capability> findAll();
-
     List<Capability> findByName(String name);
 }

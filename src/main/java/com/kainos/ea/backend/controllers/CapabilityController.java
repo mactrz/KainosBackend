@@ -4,6 +4,9 @@ package com.kainos.ea.backend.controllers;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.services.CapabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +44,16 @@ public class CapabilityController {
     public @ResponseBody
     boolean capabilityExists(@RequestParam String name) {
         return capabilityService.capabilityExists(name);
+    }
+
+    @DeleteMapping(path = "")
+    public @ResponseBody
+    ResponseEntity<Object> deleteCapability (@RequestParam String capabilityName) {
+        try {
+            capabilityService.deleteCapability(capabilityName);
+        } catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<>("No such capability exists!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Capability successfully deleted.", HttpStatus.OK);
     }
 }
