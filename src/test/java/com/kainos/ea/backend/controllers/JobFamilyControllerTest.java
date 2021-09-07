@@ -1,9 +1,11 @@
 package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.JobFamily;
+import com.kainos.ea.backend.models.User;
+import com.kainos.ea.backend.services.JobFamilyService;
+import com.kainos.ea.backend.services.UserService;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.services.CapabilityDoesNotExistException;
-import com.kainos.ea.backend.services.JobFamilyService;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 
@@ -28,7 +32,6 @@ class JobFamilyControllerTest {
 
     @Mock
     private JobFamilyService jobFamilyService;
-
     private JobFamilyController jobFamilyController;
 
     @BeforeEach
@@ -48,6 +51,29 @@ class JobFamilyControllerTest {
     }
 
     @Test
+    public void when_QueryingUpdateJobFamilyName_expect_ServiceCalledPassback() {
+        jobFamilyService.updateJobFamilyName("People Support", "New name");
+
+        Mockito.verify(jobFamilyService).updateJobFamilyName("People Support", "New name");
+    }
+
+    @Test
+    public void when_QueryingUpdateJobFamilyNameWithNonexistentJobFamily_expect_ServiceThrowsException() throws NoSuchElementException {
+        Mockito.doThrow(NoSuchElementException.class)
+                .when(jobFamilyService).updateJobFamilyName("Unknown", "New name");
+
+        ResponseEntity<Object> result = jobFamilyController.updateJobFamilyName("Unknown", "New name");
+
+        assertEquals(result.getStatusCodeValue(), 400);
+    }
+
+    @Test
+    public void when_QueryingUpdateJobFamilyName_expect_ServiceReturnsResponseCodeOK() {
+        ResponseEntity<Object> result = jobFamilyController.updateJobFamilyName("Unknown", "New name");
+
+        assertEquals(result.getStatusCodeValue(), 200);
+    }
+    
     public void when_AddingJobFamily_expect_ServiceCalledPassback() throws InvalidNameException, InstanceAlreadyExistsException {
         JobFamily jobFamily = new JobFamily();
         Mockito.when(jobFamilyService.addJobFamily(jobFamily)).thenReturn(jobFamily);
@@ -116,7 +142,7 @@ class JobFamilyControllerTest {
 
     }
   
-    @Test void when_deleteJobFamily_expect_ServiceCalledPassback() {
+    @Test void when_DeletingJobFamily_expect_ServiceCalledPassback() {
         JobFamilyController jobFamilyController = new JobFamilyController(jobFamilyService);
 
         ResponseEntity<Object> expected = new ResponseEntity<>("Job family deleted successfully.", HttpStatus.OK);
@@ -126,7 +152,7 @@ class JobFamilyControllerTest {
         assertEquals(expected, result);
     }
 
-    @Test void when_deleteJobFamily_expect_ResponseStatusToBe404() {
+    @Test void when_DeletingJobFamily_expect_ResponseStatusToBe404() {
         JobFamilyController jobFamilyController = new JobFamilyController(jobFamilyService);
         doThrow(EmptyResultDataAccessException.class).when(jobFamilyService).deleteJobFamily("");
 

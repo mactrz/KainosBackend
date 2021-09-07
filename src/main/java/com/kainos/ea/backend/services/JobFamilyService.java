@@ -1,15 +1,19 @@
 package com.kainos.ea.backend.services;
 
+import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobFamily;
 import com.kainos.ea.backend.repositories.CapabilityRepository;
 import com.kainos.ea.backend.repositories.JobFamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class JobFamilyService {
@@ -27,6 +31,18 @@ public class JobFamilyService {
         return jobFamilyRepository.findByCapabilityName(capabilityName);
     }
 
+    public void updateJobFamilyName(String jobFamilyName, String newJobFamilyName) throws NoSuchElementException {
+        if (!isAlphanumeric(newJobFamilyName) || !isAlphanumeric(jobFamilyName))
+            throw new InvalidParameterException("Only alphanumeric characters are allowed in the job family name");
+        JobFamily jobFamily = jobFamilyRepository.findById(jobFamilyName).orElseThrow();
+        Capability capabilityName = jobFamily.getCapability();
+        JobFamily newJobFamily = new JobFamily();
+        newJobFamily.setName(newJobFamilyName);
+        newJobFamily.setCapability(capabilityName);
+        jobFamilyRepository.deleteById(jobFamilyName);
+        jobFamilyRepository.save(newJobFamily);
+    }
+    
     public JobFamily addJobFamily(JobFamily jobFamily) throws InvalidNameException, InstanceAlreadyExistsException {
         validateJobFamily(jobFamily);
         return jobFamilyRepository.save(jobFamily);
@@ -41,10 +57,6 @@ public class JobFamilyService {
             throw new InstanceAlreadyExistsException();
     }
 
-    private boolean isAlphanumeric(String string) {
-        return string.matches("[A-Za-z0-9 ]+");
-    }
-
     public boolean jobFamilyExists(String jobFamilyName, String capabilityName) {
         return !jobFamilyRepository.findByNameAndCapabilityName(jobFamilyName, capabilityName).isEmpty();
 
@@ -52,5 +64,9 @@ public class JobFamilyService {
   
     public void deleteJobFamily(String jobFamilyName) throws EmptyResultDataAccessException {
         jobFamilyRepository.deleteById(jobFamilyName);
+    }
+  
+    private boolean isAlphanumeric(String string) {
+        return string.matches("[A-Za-z0-9 ]+");
     }
 }

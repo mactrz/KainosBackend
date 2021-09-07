@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
@@ -33,16 +34,19 @@ class JobFamilyServiceTest {
     private JobFamilyRepository jobFamilyRepository;
     @Mock
     private CapabilityService capabilityService;
-
+  
     private JobFamilyService jobFamilyService;
+    private JobFamily jobFamily;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         jobFamilyService = new JobFamilyService(jobFamilyRepository, capabilityService);
+        jobFamily = new JobFamily();
+        jobFamily.setName("Name");
     }
 
-    @Test
-    void when_GetJobFamiliesByCapabilityName_expect_RepositoryCalledPassback() {
+     @Test
+    void when_GettingJobFamiliesByCapabilityName_expect_RepositoryCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
         Mockito.when(jobFamilyRepository.findByCapabilityName("")).thenReturn(jobFamily);
         JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository, capabilityService);
@@ -53,6 +57,26 @@ class JobFamilyServiceTest {
         assertEquals(jobFamily, results);
     }
 
+    @Test
+    void when_UpdatingJobFamilyName_expect_RepositoryCalledPassbackFind() {
+        Mockito.when(jobFamilyRepository.findById("Name")).thenReturn(Optional.of(jobFamily));
+
+        jobFamilyService.updateJobFamilyName("Name", "Name");
+
+        Mockito.verify(jobFamilyRepository).findById("Name");
+    }
+
+    @Test
+    void when_UpdatingJobFamilyName_expect_RepositoryCalledPassbackDelete() {
+        Mockito.when(jobFamilyRepository.findById("Name")).thenReturn(Optional.of(jobFamily));
+
+        jobFamilyService.updateJobFamilyName("Name", "New Name");
+        JobFamily actual = new JobFamily();
+        actual.setName("New Name");
+
+        Mockito.verify(jobFamilyRepository).deleteById("Name");
+    }
+    
     @Test
     void when_AddingValidJobFamily_expect_RepositoryCalledPassback() throws InvalidNameException, InstanceAlreadyExistsException {
         Capability capability = new Capability();
