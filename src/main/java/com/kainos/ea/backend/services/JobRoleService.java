@@ -27,7 +27,6 @@ public class JobRoleService {
         this.capabilityService = capabilityService;
     }
 
-    // change to list as its simpler
     public List<JobRole> getAllJobRoles(){
         return jobRoleRepository.findAllByOrderByCapability();
     }

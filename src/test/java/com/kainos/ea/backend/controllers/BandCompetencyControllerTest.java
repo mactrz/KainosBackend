@@ -22,7 +22,7 @@ class BandCompetencyControllerTest {
     private BandCompetencyService bandCompetencyService;
 
     @Test
-    public void when_querying_getCompetenciesByBand_expect_ServiceCalledPassback(){
+    public void when_QueryingGetCompetenciesByBand_expect_ServiceCalledPassback(){
         List<BandCompetency> bandCompetencies = List.of(new BandCompetency());
         Mockito.when(bandCompetencyService.getCompetenciesByBand("string")).thenReturn(bandCompetencies);
         BandCompetencyController bandCompetencyController = new BandCompetencyController(bandCompetencyService);
