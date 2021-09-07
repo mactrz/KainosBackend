@@ -23,6 +23,6 @@ public class JobFamilyService {
     }
 
     public void deleteJobFamily(String jobFamilyName) throws EmptyResultDataAccessException {
-        jobFamilyRepository.deleteById("");
+        jobFamilyRepository.deleteById(jobFamilyName);
     }
 }
