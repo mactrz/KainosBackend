@@ -21,10 +21,23 @@ public class BandTrainingService {
 
     public List<Training> getTrainingByBandSortedByTrainingType(String bandName) {
         List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    public List<Training> getRecommendedTrainingByBandSortedByTrainingType(String bandName) {
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameAndRecommendedTrueOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    public List<Training> getNonRecommendedTrainingByBandSortedByTrainingType(String bandName) {
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameAndRecommendedFalseOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    private List<Training> getTrainingFromBandTrainingList(List<BandTraining> bandTrainings) {
         List<Training> trainings = new ArrayList<>();
-        for (BandTraining bandTraining : bandTrainings) {
+        for (BandTraining bandTraining : bandTrainings)
             trainings.add(bandTraining.getTraining());
-        }
         return trainings;
     }
 }
