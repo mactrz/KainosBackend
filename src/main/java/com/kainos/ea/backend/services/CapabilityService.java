@@ -39,6 +39,6 @@ public class CapabilityService {
 
     public void deleteCapability(String capabilityName) throws EmptyResultDataAccessException {
         capabilityRepository.deleteById(capabilityName);
-
+    }
     public Optional<Capability> getCapabilityByName(String name) { return capabilityRepository.findById(name); }
 }
