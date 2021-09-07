@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,9 @@ public class UserService {
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public Boolean validatePassword(String password) {
@@ -32,16 +36,16 @@ public class UserService {
         return matcher.find();
     }
 
-    public Boolean validateUser(User user) {
-        return validateUsername(user.getUsername())
-        && validatePassword(user.getPassword());
+    public Boolean validateUserData(String username, String password) {
+        return validateUsername(username)
+        && validatePassword(password);
     }
 
-    public Boolean doCredentialsMatch(String username, String password, BCryptPasswordEncoder passwordEncoder) {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .anyMatch(matchedUser -> (matchedUser.getUsername().equals(username))
-                        && (passwordEncoder.matches(password, matchedUser.getPassword())));
+    public User authenticateUser(String username, String password, BCryptPasswordEncoder passwordEncoder) {
+        Optional<User> user = getUserByUsername(username);
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+            return user.get();
+        }
+        return null;
     }
-
 }

@@ -2,8 +2,6 @@ package com.kainos.ea.backend.models;
 
 import javax.persistence.*;
 import java.util.Objects;
-import com.kainos.ea.backend.models.Band;
-import com.kainos.ea.backend.models.Capability;
 
 @Entity
 @Table(name = "JobRole")
