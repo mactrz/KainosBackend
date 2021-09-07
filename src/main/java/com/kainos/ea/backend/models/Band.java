@@ -1,8 +1,6 @@
 package com.kainos.ea.backend.models;
 
 import javax.persistence.*;
-import java.util.Set;
-
 import java.util.Objects;
 
 @Entity
@@ -12,6 +10,9 @@ public class Band {
     @Id
     @Column(name = "bandName")
     private String name;
+
+    @Column(name = "level")
+    private String level;
 
     /*
      *       CONSTRUCTORS
@@ -31,6 +32,7 @@ public class Band {
     public String toString() {
         return "Band{" +
                 "name='" + name + '\'' +
+                ", level='" + level + '\'' +
                 '}';
     }
 
@@ -38,15 +40,14 @@ public class Band {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Band band1 = (Band) o;
-        return name.equals(band1.name);
+        Band band = (Band) o;
+        return Objects.equals(name, band.name) && Objects.equals(level, band.level);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, level);
     }
-
     /*
      *       GETTERS AND SETTERS
      * */
@@ -57,5 +58,13 @@ public class Band {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

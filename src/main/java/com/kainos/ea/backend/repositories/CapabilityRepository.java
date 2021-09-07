@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface CapabilityRepository extends CrudRepository<Capability, String> {
     List<Capability> findAll();
 
-    List<Capability> findByName(String capabilityName);
+    List<Capability> findByName(String name);
 }

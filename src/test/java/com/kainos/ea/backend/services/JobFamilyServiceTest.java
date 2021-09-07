@@ -4,6 +4,7 @@ import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobFamily;
 import com.kainos.ea.backend.repositories.CapabilityRepository;
 import com.kainos.ea.backend.repositories.JobFamilyRepository;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,12 +13,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.naming.InvalidNameException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 class JobFamilyServiceTest {
@@ -135,5 +142,21 @@ class JobFamilyServiceTest {
         Mockito.verify(jobFamilyRepository).findByNameAndCapabilityName(jobFamilyName, capabilityName);
 
         Assertions.assertFalse(result);
+    }
+  
+    void when_deleteInvalidJobFamily_expect_ThrowsException() {
+        doThrow(EmptyResultDataAccessException.class).when(jobFamilyRepository).deleteById("");
+        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> jobFamilyService.deleteJobFamily(""), "Should throw EmptyResultDataAccessException");
+    }
+
+    @Test
+    void when_deleteJobFamily_expect_DoesNotThrowException() {
+        doNothing().when(jobFamilyRepository).deleteById("");
+        JobFamilyService jobFamilyService = new JobFamilyService(jobFamilyRepository);
+
+        assertDoesNotThrow(() -> jobFamilyService.deleteJobFamily(""), "Should" +
+                " not throw an exception");
     }
 }

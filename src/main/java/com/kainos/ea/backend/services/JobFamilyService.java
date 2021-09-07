@@ -4,6 +4,7 @@ import com.kainos.ea.backend.models.JobFamily;
 import com.kainos.ea.backend.repositories.CapabilityRepository;
 import com.kainos.ea.backend.repositories.JobFamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -46,5 +47,10 @@ public class JobFamilyService {
 
     public boolean jobFamilyExists(String jobFamilyName, String capabilityName) {
         return !jobFamilyRepository.findByNameAndCapabilityName(jobFamilyName, capabilityName).isEmpty();
+
+    }
+  
+    public void deleteJobFamily(String jobFamilyName) throws EmptyResultDataAccessException {
+        jobFamilyRepository.deleteById(jobFamilyName);
     }
 }

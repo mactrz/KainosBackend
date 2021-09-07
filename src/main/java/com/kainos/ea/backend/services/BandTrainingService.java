@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import static java.util.stream.StreamSupport.stream;
 
 @Service
 public class BandTrainingService {
@@ -24,10 +21,23 @@ public class BandTrainingService {
 
     public List<Training> getTrainingByBandSortedByTrainingType(String bandName) {
         List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    public List<Training> getRecommendedTrainingByBandSortedByTrainingType(String bandName) {
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameAndRecommendedTrueOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    public List<Training> getNonRecommendedTrainingByBandSortedByTrainingType(String bandName) {
+        List<BandTraining> bandTrainings = bandTrainingRepository.findByBandNameAndRecommendedFalseOrderByTrainingType(bandName);
+        return getTrainingFromBandTrainingList(bandTrainings);
+    }
+
+    private List<Training> getTrainingFromBandTrainingList(List<BandTraining> bandTrainings) {
         List<Training> trainings = new ArrayList<>();
-        for (BandTraining bandTraining : bandTrainings) {
+        for (BandTraining bandTraining : bandTrainings)
             trainings.add(bandTraining.getTraining());
-        }
         return trainings;
     }
 }

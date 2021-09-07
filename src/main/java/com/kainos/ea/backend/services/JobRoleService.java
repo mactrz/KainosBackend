@@ -3,7 +3,7 @@ package com.kainos.ea.backend.services;
 import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
-import com.kainos.ea.backend.repositories.JobRolesRepository;
+import com.kainos.ea.backend.repositories.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,38 +13,49 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class JobRolesService {
+public class JobRoleService {
 
-    private JobRolesRepository jobRolesRepository;
-    private BandService bandService;
-    private CapabilityService capabilityService;
+
+    JobRoleRepository jobRoleRepository;
+    BandService bandService;
+    CapabilityService capabilityService;
 
     @Autowired
-    public JobRolesService(JobRolesRepository jobRolesRepository, BandService bandService, CapabilityService capabilityService) {
-        this.jobRolesRepository = jobRolesRepository;
+    public JobRoleService(JobRoleRepository jobRoleRepository, BandService bandService, CapabilityService capabilityService) {
+        this.jobRoleRepository = jobRoleRepository;
         this.bandService = bandService;
         this.capabilityService = capabilityService;
     }
 
-    public List<JobRole> getAllJobRolesSortedByCapability() {
-        return jobRolesRepository.findAllByOrderByCapability();
+    public List<JobRole> getAllJobRoles(){
+        return jobRoleRepository.findAllByOrderByCapability();
+    }
+
+    public List<JobRole> getAllJobRolesSortByBandName(){
+        return jobRoleRepository.findAllByOrderByBand();
+    }
+  
+    public List<JobRole> getAllJobRolesSortedByCapability(){
+        return jobRoleRepository.findAllByOrderByCapability();
     }
 
     public JobRole saveJobRole(JobRole jobRole) {
-        return jobRolesRepository.save(jobRole);
+        return jobRoleRepository.save(jobRole);
     }
 
     public void addJobRole(JobRole jobRole) throws IllegalArgumentException {
-        if (jobRole.getName().length() > 32 || !validateRegex(jobRole.getName(), "^[A-z][A-z ]+$")) {
+        if (jobRole.getName().length() > 32 || violatesRegex(jobRole.getName(), "^[A-z][A-z ]+$")) {
             throw new IllegalArgumentException("Invalid role name!");
         }
-        if (jobRole.getSpecification().length() > 250 || !validateRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
+        if (jobRole.getSpecification().length() > 250 || violatesRegex(jobRole.getSpecification(), "^[A-z][0-9A-z '().,/-]{0,249}$")) {
             throw new IllegalArgumentException("Invalid specification!");
         }
+
         Optional<Band> band = bandService.getBandByName(jobRole.getBand().getName());
         if (band.isEmpty()) {
             throw new IllegalArgumentException("Band with given name does not exist!");
         }
+
         Optional<Capability> capability = capabilityService.getCapabilityByName(jobRole.getCapability().getName());
         if (capability.isEmpty()) {
             throw new IllegalArgumentException("Capability with given name does not exist!");
@@ -57,9 +68,13 @@ public class JobRolesService {
         }
     }
 
-    private boolean validateRegex(String textToBeValidated, String regex){
+    public void deleteJobRole(int id) {
+        jobRoleRepository.deleteById(id);
+    }
+
+    private boolean violatesRegex(String textToBeValidated, String regex){
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(textToBeValidated);
-        return matcher.find();
+        return !matcher.find();
     }
 }
