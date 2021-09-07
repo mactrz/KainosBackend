@@ -3,6 +3,7 @@ package com.kainos.ea.backend.services;
 import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +23,8 @@ public class BandService {
         return bandRepository.findAllByOrderByLevelDesc();
     }
     public Optional<Band> getBandByName(String name){ return bandRepository.findById(name); }
+
+    public void deleteBand(String bandName) throws EmptyResultDataAccessException {
+        bandRepository.deleteById(bandName);
+    }
 }

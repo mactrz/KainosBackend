@@ -18,6 +18,11 @@ public class JobFamily {
 
     }
 
+    public JobFamily(String name, Capability capability) {
+        this.name = name;
+        this.capability = capability;
+    }
+
     public Capability getCapability() {
         return capability;
     }

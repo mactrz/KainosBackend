@@ -21,10 +21,6 @@ public class CapabilityService {
         this.capabilityRepository = capabilityRepository;
     }
 
-    public List<Capability> getCapabilities() {
-        return capabilityRepository.findAll();
-    }
-
     public Capability addCapability(Capability capability) throws InvalidNameException, InstanceAlreadyExistsException {
         if (!capability.getName().matches("[A-Za-z0-9 ]+"))
             throw new InvalidNameException("Only alphanumeric characters are allowed in the capability name");
@@ -37,9 +33,12 @@ public class CapabilityService {
         return !capabilityRepository.findByName(capabilityName).isEmpty();
     }
 
-    public Optional<Capability> getCapabilityByName(String name) { return capabilityRepository.findById(name); }
+    public List<Capability> getCapabilities() {
+        return capabilityRepository.findAll();
+    }
 
     public void deleteCapability(String capabilityName) throws EmptyResultDataAccessException {
         capabilityRepository.deleteById(capabilityName);
-    }
+
+    public Optional<Capability> getCapabilityByName(String name) { return capabilityRepository.findById(name); }
 }

@@ -19,7 +19,7 @@ class BandCompetencyServiceTest {
     private BandCompetencyRepository bandCompetencyRepository;
 
     @Test
-    public void when_querying_getCompetenciesByBand_expect_ServiceCalledPassback(){
+    public void when_QueryingGetCompetenciesByBand_expect_ServiceCalledPassback(){
         List<BandCompetency> bandCompetencies = List.of(new BandCompetency());
         Mockito.when(bandCompetencyRepository.findAllByBandName("string")).thenReturn(bandCompetencies);
         BandCompetencyService bandCompetencyService = new BandCompetencyService(bandCompetencyRepository);

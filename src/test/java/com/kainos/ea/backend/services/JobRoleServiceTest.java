@@ -4,11 +4,14 @@ import com.kainos.ea.backend.models.Band;
 import com.kainos.ea.backend.models.Capability;
 import com.kainos.ea.backend.models.JobRole;
 import com.kainos.ea.backend.repositories.JobRoleRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +27,18 @@ class JobRoleServiceTest {
     @Mock
     private BandService bandService;
 
+    private JobRoleService jobRoleService;
+
+    @BeforeEach
+    public void setUp() {
+        jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+    }
+
     @Test
-    public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback(){
+    public void when_QueryingAllJobRolesSortedByCapability_expect_RepositoryCalledPassback() {
         List<JobRole> jobRoles = List.of(new JobRole());
         Mockito.when(jobRoleRepository.findAllByOrderByCapability()).thenReturn(jobRoles);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
+
         List<JobRole> results = jobRoleService.getAllJobRolesSortedByCapability();
 
         Mockito.verify(jobRoleRepository).findAllByOrderByCapability();
@@ -36,10 +46,16 @@ class JobRoleServiceTest {
     }
 
     @Test
+    public void when_DeletingJobRole_expect_RepositoryCalledPassback() {
+        jobRoleService.deleteJobRole(1);
+
+        Mockito.verify(jobRoleRepository).deleteById(1);
+    }
+
+    @Test
     public void when_AddingNewJobRoleWithInvalidName_expect_IllegalArgumentExceptionWithAppropriateMessage() {
         JobRole jobRole = new JobRole();
         jobRole.setName("Test!! name");
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Invalid role name!");
     }
@@ -61,7 +77,6 @@ class JobRoleServiceTest {
         band.setName("Name");
         jobRole.setBand(band);
         Mockito.when(bandService.getBandByName("Name")).thenReturn(Optional.empty());
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Band with given name does not exist!");
     }
@@ -78,7 +93,6 @@ class JobRoleServiceTest {
         capability.setName("Name");
         jobRole.setCapability(capability);
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.empty());
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "Capability with given name does not exist!");
     }
@@ -97,7 +111,6 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRoleRepository.save(jobRole)).thenReturn(null);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertThrows(IllegalArgumentException.class, () -> jobRoleService.addJobRole(jobRole), "There was an error while adding a job role! Please, try again later.");
     }
@@ -116,7 +129,6 @@ class JobRoleServiceTest {
         Mockito.when(capabilityService.getCapabilityByName("Name")).thenReturn(Optional.of(capability));
         jobRole.setCapability(capability);
         Mockito.when(jobRoleRepository.save(jobRole)).thenReturn(jobRole);
-        JobRoleService jobRoleService = new JobRoleService(jobRoleRepository, bandService, capabilityService);
 
         assertDoesNotThrow(() -> jobRoleService.addJobRole(jobRole));
     }
