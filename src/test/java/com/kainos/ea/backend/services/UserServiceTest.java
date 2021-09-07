@@ -8,11 +8,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class UserServiceTest {
 
     @Mock
@@ -100,7 +105,7 @@ public class UserServiceTest {
     public void when_validateUserCalledWithValidUser_expect_true() {
         User validUser = new User("mail@kainos.com", "strong_password");
 
-        Boolean result = userService.validateUser(validUser);
+        Boolean result = userService.validateUserData(validUser.getUsername(), validUser.getPassword());
 
         assertTrue(result);
     }
@@ -109,28 +114,28 @@ public class UserServiceTest {
     public void when_validateUserCalledWithInvalidUser_expect_false() {
         User validUser = new User("", "");
 
-        Boolean result = userService.validateUser(validUser);
+        Boolean result = userService.validateUserData(validUser.getUsername(), validUser.getPassword());
 
         assertFalse(result);
     }
 
     @Test
     public void when_doCredentialMatchCalledWithMatchingCredentials_expect_true() {
-        Mockito.when(userRepository.findAll()).thenReturn(users);
+        Mockito.when(userRepository.findByUsername(users.get(0).getUsername())).thenReturn(Optional.of(users.get(0)));
         Mockito.when(passwordEncoder.matches("strong_password", "strong_password")).thenReturn(true);
+        UserService newUserService = new UserService(userRepository);
+        User result = newUserService.authenticateUser("mail@email.com", "strong_password", passwordEncoder);
 
-        Boolean result = userService.doCredentialsMatch("mail@email.com", "strong_password", passwordEncoder);
-
-        assertTrue(result);
+        assertNotNull(result);
     }
 
     @Test
     public void when_doCredentialMatchCalledWithBadUsername_expect_false() {
-        Mockito.when(userRepository.findAll()).thenReturn(users);
+        Mockito.when(userRepository.findByUsername(users.get(1).getUsername())).thenReturn(null);
+        UserService newUserService = new UserService(userRepository);
+        User result = newUserService.authenticateUser("maillll@email.com", "strong_password", passwordEncoder);
 
-        Boolean result = userService.doCredentialsMatch("maillll@email.com", "strong_password", passwordEncoder);
-
-        assertFalse(result);
+        assertNull(result);
     }
 
     @Test
@@ -138,8 +143,8 @@ public class UserServiceTest {
         Mockito.when(userRepository.findAll()).thenReturn(users);
         Mockito.when(passwordEncoder.matches("strong_passworddd", "strong_password")).thenReturn(false);
 
-        Boolean result = userService.doCredentialsMatch("mail@email.com", "strong_passworddd", passwordEncoder);
+        User result = userService.authenticateUser("mail@email.com", "strong_passworddd", passwordEncoder);
 
-        assertFalse(result);
+        assertNull(result);
     }
 }
