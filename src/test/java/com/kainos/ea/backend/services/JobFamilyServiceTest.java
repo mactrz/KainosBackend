@@ -50,7 +50,7 @@ class JobFamilyServiceTest {
     }
 
     @Test
-    public void when_updateJobFamilyName_expect_RepositoryCalledPassbackdelete() {
+    public void when_updateJobFamilyName_expect_RepositoryCalledPassbackDelete() {
         Mockito.when(jobFamilyRepository.findById("Name")).thenReturn(Optional.of(jobFamily));
 
         jobFamilyService.updateJobFamilyName("Name", "New Name");

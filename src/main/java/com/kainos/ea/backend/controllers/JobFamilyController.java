@@ -28,7 +28,7 @@ public class JobFamilyController {
         return jobFamilyService.getJobFamiliesByCapabilityName(capabilityName);
     }
 
-    @PutMapping(path = "/{jobFamilyName}/{jobFamilyNewName}")
+    @PatchMapping(path = "/{jobFamilyName}/{jobFamilyNewName}")
     public @ResponseBody
     ResponseEntity<Object> updateJobFamilyName(@PathVariable("jobFamilyName") String jobFamilyName, @PathVariable("jobFamilyNewName") String jobFamilyNewName) {
         try{
