@@ -39,13 +39,6 @@ class JobFamilyControllerTest {
         jobFamilyController = new JobFamilyController(jobFamilyService);
     }
 
-    private JobFamilyController jobFamilyController;
-
-    @BeforeEach
-    public void setUp() {
-        jobFamilyController = new JobFamilyController(jobFamilyService);
-    }
-
     @Test
     public void when_QueryingDataJobs_expect_ServiceCalledPassback() {
         List<JobFamily> jobFamily = List.of(new JobFamily());
