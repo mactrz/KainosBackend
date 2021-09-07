@@ -19,7 +19,7 @@ public class UserControllerTest {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Test
-    public void when_verifyUserCalledWithValidUser_expect_true() {
+    public void when_QueryingVerifyUserCalledWithValidUser_expect_true() {
         User validUser = new User("mail@email.com", "strong_password");
         Mockito.when(userService.validateUser(validUser)).thenReturn(true);
         Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_password", passwordEncoder)).thenReturn(true);
@@ -32,7 +32,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithUnknownUser_expect_false() {
+    public void when_QueryingVerifyUserCalledWithUnknownUser_expect_false() {
         User invalidUser = new User("mail@email.com", "strong_password");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
         Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_password", passwordEncoder)).thenReturn(false);
@@ -45,7 +45,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithUserInvalidEmail_expect_false() {
+    public void when_QueryingVerifyUserCalledWithUserInvalidEmail_expect_false() {
         User invalidUser = new User("mailemail.com", "strong_password");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(false);
         UserController userController = new UserController(userService);
@@ -57,7 +57,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithUserEmptyMail_expect_false() {
+    public void when_QueryingVerifyUserCalledWithUserEmptyMail_expect_false() {
         User invalidUser = new User("", "strong_password");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(false);
         UserController userController = new UserController(userService);
@@ -69,7 +69,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithUserEmptyPassword_expect_false() {
+    public void when_QueryingVerifyUserCalledWithUserEmptyPassword_expect_false() {
         User invalidUser = new User("mail@kainos.com", "");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(false);
         UserController userController = new UserController(userService);
@@ -81,7 +81,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithGoodUsernameBadPassword_expect_false() {
+    public void when_QueryingVerifyUserCalledWithGoodUsernameBadPassword_expect_false() {
         User invalidUser = new User("mail@email.com", "strong_pas");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
         Mockito.when(userService.doCredentialsMatch("mail@email.com", "strong_pas", passwordEncoder)).thenReturn(false);
@@ -94,7 +94,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void when_verifyUserCalledWithGoodPasswordBadUsername_expect_false() {
+    public void when_QueryingVerifyUserCalledWithGoodPasswordBadUsername_expect_false() {
         User invalidUser = new User("ma@email.com", "strong_password");
         Mockito.when(userService.validateUser(invalidUser)).thenReturn(true);
         Mockito.when(userService.doCredentialsMatch("ma@email.com", "strong_password", passwordEncoder)).thenReturn(false);
