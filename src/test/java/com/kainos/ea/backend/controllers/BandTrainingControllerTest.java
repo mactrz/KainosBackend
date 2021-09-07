@@ -2,6 +2,7 @@ package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.Training;
 import com.kainos.ea.backend.services.BandTrainingService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,14 +19,32 @@ class BandTrainingControllerTest {
     @Mock
     private BandTrainingService bandTrainingService;
 
-    @Test
-    public void when_QueryingTrainingByBand_expect_ServiceCalledPassback() {
-        List<Training> training = List.of(new Training());
-        Mockito.when(bandTrainingService.getTrainingByBandSortedByTrainingType("")).thenReturn(training);
-        BandTrainingController bandTrainingController = new BandTrainingController(bandTrainingService);
+    private BandTrainingController bandTrainingController;
 
-        List<Training> results = bandTrainingController.getTrainingByBandSortedByTrainingType("");
-        Mockito.verify(bandTrainingService).getTrainingByBandSortedByTrainingType("");
+    private List<Training> training;
+
+    @BeforeEach
+    public void setUp() {
+        bandTrainingController = new BandTrainingController(bandTrainingService);
+        training = List.of(new Training());
+    }
+
+    @Test
+    public void when_QueryingRecommendedTrainingByBand_expect_ServiceCalledPassback() {
+        Mockito.when(bandTrainingService.getRecommendedTrainingByBandSortedByTrainingType("")).thenReturn(training);
+
+        List<Training> results = bandTrainingController.getTrainingByBandSortedByTrainingType("", true);
+        Mockito.verify(bandTrainingService).getRecommendedTrainingByBandSortedByTrainingType("");
+
+        assertEquals(training, results);
+    }
+
+    @Test
+    public void when_QueryingNonRecommendedTrainingByBand_expect_ServiceCalledPassback() {
+        Mockito.when(bandTrainingService.getNonRecommendedTrainingByBandSortedByTrainingType("")).thenReturn(training);
+
+        List<Training> results = bandTrainingController.getTrainingByBandSortedByTrainingType("", false);
+        Mockito.verify(bandTrainingService).getNonRecommendedTrainingByBandSortedByTrainingType("");
 
         assertEquals(training, results);
     }

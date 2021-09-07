@@ -26,10 +26,20 @@ public class UserController {
 
     @PostMapping(path = "/verify")
     public @ResponseBody
-    Boolean verifyUser(@RequestBody User user) {
+    User verifyUser(@RequestBody User user) {
         String username = user.getUsername();
         String password = user.getPassword();
 
-        return userService.validateUser(user) && userService.doCredentialsMatch(username, password, passwordEncoder);
+        if(userService.validateUserData(username, password)) {
+            User userData = userService.authenticateUser(username, password, passwordEncoder);
+            try {
+                userData.setPassword(null);
+            }
+            catch (NullPointerException e) {
+                return userData;
+            }
+            return userData;
+        }
+        return null;
     }
 }

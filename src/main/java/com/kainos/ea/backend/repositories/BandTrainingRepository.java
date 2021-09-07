@@ -8,4 +8,8 @@ import java.util.List;
 public interface BandTrainingRepository extends CrudRepository<BandTraining, Short> {
 
     List<BandTraining> findByBandNameOrderByTrainingType(String bandName);
+
+    List<BandTraining> findByBandNameAndRecommendedTrueOrderByTrainingType(String bandName);
+
+    List<BandTraining> findByBandNameAndRecommendedFalseOrderByTrainingType(String bandName);
 }

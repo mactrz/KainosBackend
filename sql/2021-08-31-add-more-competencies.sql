@@ -1,10 +1,10 @@
 CREATE TABLE `Competency` (
-  `competencyName` varchar(200) NOT NULL,
+  `competencyName` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`competencyName`)
 )
 
-insert into Competency(competencyName)
-values
+INSERT INTO Competency(competencyName)
+VALUES
 ('Mobilises self and others to drive self-improvement'),
 ('Champions continuous improvement'),
 ('Developing networks and building and maintaining relationships'),
@@ -45,7 +45,7 @@ values
 ('Stakeholder management');
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Apprentice', 'Effective time management', 'Understands role, tasks and deadlines and work towards these, escalating any issues where appropriate to People/Project Manager.', 'Setting Direction, Development and Accountability'),
 ('Apprentice', 'Promoting accountability', 'Accepts personal responsibility for quality and timelines of work set.', 'Setting Direction, Development and Accountability'),
 ('Apprentice', 'Effective meetings', 'Works to manage diary, commitments and ready to attend meetings on time.', 'Setting Direction, Development and Accountability'),
@@ -69,7 +69,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Apprentice', 'Supporting the strategy and vision', 'Understands the Kainos Vision, Strategy and Principles.', 'Supporting and Delivering the Strategy'),
 ('Apprentice', 'Organisational awareness', 'Understands the organisation structure and the purpose of Kainos.', 'Supporting and Delivering the Strategy'),
 ('Apprentice', 'Cultural and ethical awareness', 'Possess general knowledge of local cultural differences and familiar with the Kainos policy towards Diversity and Inclusion.', 'Supporting and Delivering the Strategy'),
@@ -88,7 +88,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Apprentice', 'Demonstrates commercial awareness and behaviours', 'Understands the markets and sectors in which Kainos operates while acknowledging how role links in and has an impact on other teams and the business.', 'Commerciality and Risk'),
 ('Apprentice', 'Improves efficiency and effectiveness to drive profitability', 'Wiling to learn, and embrace new ideas, to improve processes and procedures.', 'Commerciality and Risk'),
 ('Apprentice', 'Promotes and adheres to Kainos process and policies', 'Cooperates with business processes completing accurately and honestly e.g., timesheets/EOY Review and travel requests.', 'Commerciality and Risk'),
@@ -107,7 +107,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Apprentice', 'Communicates effectively', 'Acts in a respectful manner in all forms of communication while being open and honest.Displays a positive approach when interacting with others.', 'Communicating and Influence'),
 ('Apprentice', 'Influencing others', 'Recognises influencing as a key skill required to work effectively with internal and external customers.', 'Communicating and Influence'),
 ('Apprentice', 'Customer Focus and Stakeholder management', 'Acts in accordance with the Kainos values demonstrating through own behaviours and interactions with colleagues and customers.', 'Communicating and Influence'),
@@ -126,7 +126,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Developing self-awareness', 'Reflects on how factors such as own values, prejudices and emotions influences own judgement, behaviour, and self-belief. Uses feedback from appraisals and other sources to consider personal impact and changes behaviour. Understands personal sources of stress and wellbeing.', 'Personal Performance'),
 ('Manager', 'Managing yourself', 'Plans and manages own time effectively and fulfils work requirements and commitments to a high standard, without compromising own health and wellbeing. Remains calm and focused under pressure.', 'Personal Performance'),
 ('Manager', 'Continuing personal development', 'Proactively manages self and career and identifies personal learning needs plan and completes a broad range of formal and informal learning opportunities by taking responsibility for own personal development and seeking opportunities for learning. Strives to put learning into practice. Clearly demonstrates that leadership and technical skills are equally valued.', 'Personal Performance'),
@@ -141,7 +141,7 @@ values
 ('Leadership Community', 'Acting with integrity', 'Assures standards of integrity are maintained across the business and communicates the importance of always adopting an ethical and inclusive approach.', 'Personal Performance');
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Developing self-awareness', 'Reflects on how factors such as own values, prejudices and emotions influences own judgement, behaviour, and self-belief. Uses feedback from appraisals and other sources to consider personal impact and changes behaviour. Understands personal sources of stress and wellbeing.', 'Personal Performance'),
 ('Manager', 'Managing yourself', 'Plans and manages own time effectively and fulfils work requirements and commitments to a high standard, without compromising own health and wellbeing. Remains calm and focused under pressure.', 'Personal Performance'),
 ('Manager', 'Continuing personal development', 'Proactively manages self and career and identifies personal learning needs plan and completes a broad range of formal and informal learning opportunities by taking responsibility for own personal development and seeking opportunities for learning. Strives to put learning into practice. Clearly demonstrates that leadership and technical skills are equally valued.', 'Personal Performance'),
@@ -156,7 +156,7 @@ values
 ('Leadership Community', 'Acting with integrity', 'Assures standards of integrity are maintained across the business and communicates the importance of always adopting an ethical and inclusive approach.', 'Personal Performance');
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Mobilises people to drive business improvement & innovation', 'Supports others in delivering high quality services and excellence by supporting mobilising teams and contributing to business improvement.', 'Working with Others'),
 ('Manager', 'Champions continuous improvement in self & others – creating a positive environment and encouraging contribution', 'Seeks and acknowledges the views and inputs of others. Shows respect for the contributions and challenges of others through positive and constructive feedback.', 'Working with Others'),
 ('Manager', 'Managing performance', 'Uses information and data about performance to identify improvements which will strengthen services.', 'Working with Others'),
@@ -174,7 +174,7 @@ values
 ('Leadership Community', 'Working within teams', 'Contributes and leads senior teams. Enables others to take on leadership responsibilities, building high level leadership capability and capacity from a diverse range of backgrounds.', 'Working with Others');
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Identifying the contexts for change', 'Understands the range of factors which determine why changes are made and supports Kainos senior leaders to deliver key messages.', 'Setting Direction, Development and Accountability'),
 ('Manager', 'Improvement and Innovation', 'Gathers data and information about aspects of the business, analyses evidence and uses this knowledge to suggest changes that will improve services in the future. Questions established practices which do not add value. Puts forward creative suggestions to improve the quality of service provided.', 'Setting Direction, Development and Accountability'),
 ('Manager', 'Making decisions', 'Consults with others and contributes to decisions including the future direction/vision of own business area or projects.', 'Setting Direction, Development and Accountability'),
@@ -190,7 +190,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Framing the strategy', 'Strategic awareness including an understanding and knowledge of how role and those within in immediate team fit with and support delivery of the organisational objectives.', 'Supporting and Delivering the Strategy'),
 ('Manager', 'Developing the strategy', 'Feeds in ideas and knowledge from immediate teams and supports the senior leaders in developing a strategy.', 'Supporting and Delivering the Strategy'),
 ('Manager', 'Implementing the strategy', 'Support, develop and implement the strategy in immediate teams.', 'Supporting and Delivering the Strategy'),
@@ -205,7 +205,7 @@ values
 ('Leadership Community', 'Embedding the strategy', 'Enables and supports the conditions and culture needed to sustain changes integral to the successful delivery of the strategy. Keeps momentum alive by reinforcing key messages, monitoring progress, and recognising where the strategy has been embraced by others. Evaluates outcomes and uses learnings to adapt strategic and operational plans. Aligns KPI’s across the business and reports on progress to ensure continued progress.', 'Supporting and Delivering the Strategy');
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Demonstrates commercial awareness and behaviours', 'Aware of the importance of effective commercial behaviours and the needs of the business. Identifies and ensures that personal objectives are focussed on innovative solutions to achieve commercial outcomes and objectives as well as contributing to our growth ambitions. Recognises when products or services are not being  delivered to the required level of quality or standard and takes appropriate action.', 'Commerciality and Risk'),
 ('Manager', 'Contributes to the ongoing development of new business to support Kainos’ growth ambitions', 'Contributes to development of new business through involvement in BD process, for example, bid/proposal writing, customer presentations, pricing solutions. Establishes trusted customer relationships and adds value by helping and advising customers in areas beyond current project work, identifying possible areas where additional Kainos business can be generated.', 'Commerciality and Risk'),
 ('Manager', 'Improves efficiency and effectiveness to drive profitability', 'Looks to support and drive efficiencies and profitability through immediate team. Reviews processes within own teams and challenges through the right behaviours and channels to support the overall commercial objectives.', 'Commerciality and Risk'),
@@ -224,7 +224,7 @@ values
 
 
 INSERT INTO BandCompetency(bandName, competencyName, description, competencyMainName)
-values
+VALUES
 ('Manager', 'Develops, communicates and promotes the Kainos vision and strategy', 'Provides feedback and support in communicating the vision, and advocates within immediate teams.', 'Communicating and Influence'),
 ('Manager', 'Influencing the vision and beyond', 'Credible communicator, displaying authenticity and adapting influencing style for different audiences.', 'Communicating and Influence'),
 ('Manager', 'Influencing change and transformation', 'Articulates the need for changes to processes and systems, acknowledging the impact on people and services.', 'Communicating and Influence'),
