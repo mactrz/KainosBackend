@@ -1,37 +1,57 @@
 package com.kainos.ea.backend.controllers;
 
+import com.kainos.ea.backend.models.Band;
+import com.kainos.ea.backend.services.BandService;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Objects;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doThrow;
 
-class BandControllerTest {
+@ExtendWith(MockitoExtension.class)
+public class BandControllerTest {
 
-    @LocalServerPort
-    private final int port = 8080;
-
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    @Mock
+    private BandService bandService;
 
     @Test
-    public void getAllBandsTest() throws Exception{
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/band/"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"name\":\"Associate\"}";
+    public void when_QueryingAllBandNames_expect_ServiceCalledPassback() {
+        List<Band> bands = List.of(new Band());
+        Mockito.when(bandService.getAllBands()).thenReturn(bands);
+        BandController bandController = new BandController(bandService);
 
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+        List<Band> results = bandController.getAllBands();
+        Mockito.verify(bandService).getAllBands();
+
+        assertEquals(bands, results);
     }
 
-    private String createURLWithPort(String uri) {
+    @Test void when_deleteBand_expect_ServiceCalledPassback() {
+        BandController bandController = new BandController(bandService);
 
-        return "http://localhost:" + port + uri;
+        ResponseEntity<Object> expected = new ResponseEntity<>("Band deleted successfully.", HttpStatus.OK);
+        ResponseEntity<Object> result = bandController.deleteBand("");
+
+        Mockito.verify(bandService).deleteBand("");
+        assertEquals(expected, result);
+    }
+
+    @Test void when_deleteJobFamily_expect_ResponseStatusToBe404() {
+        BandController bandController = new BandController(bandService);
+        doThrow(EmptyResultDataAccessException.class).when(bandService).deleteBand("");
+
+        ResponseEntity<Object> expected = new ResponseEntity<>("No such band exists!", HttpStatus.NOT_FOUND);
+        ResponseEntity<Object> result = bandController.deleteBand("");
+
+        Mockito.verify(bandService).deleteBand("");
+        assertEquals(expected, result);
     }
 }

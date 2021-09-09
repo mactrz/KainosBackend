@@ -1,27 +1,51 @@
 package com.kainos.ea.backend.controllers;
 
 import com.kainos.ea.backend.models.JobRole;
-import com.kainos.ea.backend.services.JobRolesService;
+import com.kainos.ea.backend.services.JobRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/job-role")
 public class JobRoleController {
 
+    private JobRoleService jobRoleService;
+
     @Autowired
-    JobRolesService jobRolesService;
+    public JobRoleController(JobRoleService jobRoleService) {
+        this.jobRoleService = jobRoleService;
+    }
 
     @GetMapping(path = "/band-level")
     public @ResponseBody
-    Iterable<JobRole> getAllJobRolesSortedByBandName() {
-        return jobRolesService.getAllJobRolesSortByBandName();
+    List<JobRole> getAllJobRolesSortedByBandName() {
+        return jobRoleService.getAllJobRolesSortByBandName();
     }
 
-    @GetMapping("/list-sorted")
-    public @ResponseBody Iterable<JobRole> getAllJobRolesSortedByCapability(){
-        return jobRolesService.getAllJobRolesSortedByCapability();
+    @GetMapping(path = "/list-sorted")
+    public @ResponseBody
+    List<JobRole> getAllJobRolesSortedByCapability(){
+        return jobRoleService.getAllJobRolesSortedByCapability();
     }
 
+    @PostMapping(path = "/add")
+    public @ResponseBody ResponseEntity<Object> addJobRole(@RequestBody JobRole jobRole){
+        try {
+            jobRoleService.addJobRole(jobRole);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Job role created successfully!", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "/delete")
+    public @ResponseBody ResponseEntity<Object> deleteJobRole(@RequestParam int id) {
+        jobRoleService.deleteJobRole(id);
+        return new ResponseEntity<>("Job role deleted successfully!", HttpStatus.OK);
+    }
 }

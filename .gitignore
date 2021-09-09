@@ -1,8 +1,10 @@
 HELP.md
 target/
+!maven-wrapper.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.properties
 
 ### STS ###
 .apt_generated
@@ -34,4 +36,4 @@ build/
 
 **/application.properties
 .DS_Store
-
+bin/

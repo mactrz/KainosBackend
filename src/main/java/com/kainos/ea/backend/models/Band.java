@@ -1,10 +1,6 @@
-
 package com.kainos.ea.backend.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -15,11 +11,18 @@ public class Band {
     @Column(name = "bandName")
     private String name;
 
+    @Column(name = "level")
+    private String level;
+
     /*
      *       CONSTRUCTORS
      * */
 
     public Band() {}
+
+    public Band(String bandName) {
+        this.name = bandName;
+    }
 
     /*
      *       OVERRIDDEN METHODS
@@ -28,7 +31,8 @@ public class Band {
     @Override
     public String toString() {
         return "Band{" +
-                "band='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", level='" + level + '\'' +
                 '}';
     }
 
@@ -36,15 +40,14 @@ public class Band {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Band band1 = (Band) o;
-        return name.equals(band1.name);
+        Band band = (Band) o;
+        return Objects.equals(name, band.name) && Objects.equals(level, band.level);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, level);
     }
-
     /*
      *       GETTERS AND SETTERS
      * */
@@ -55,5 +58,13 @@ public class Band {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

@@ -2,8 +2,6 @@ package com.kainos.ea.backend.models;
 
 import javax.persistence.*;
 import java.util.Objects;
-import com.kainos.ea.backend.models.Band;
-import com.kainos.ea.backend.models.Capability;
 
 @Entity
 @Table(name = "JobRole")
@@ -24,7 +22,7 @@ public class JobRole {
     private String sharepointUrl;
 
     @Column(name = "responsibilites")
-    private String responsibilites;
+    private String responsibilites = "Responsibilities not provided yet";
 
     @ManyToOne
     @JoinColumn(name = "capabilityName")

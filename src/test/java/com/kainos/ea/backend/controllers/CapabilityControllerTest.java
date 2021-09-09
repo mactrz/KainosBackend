@@ -1,42 +1,114 @@
 package com.kainos.ea.backend.controllers;
 
-import com.kainos.ea.backend.BackendApplicationTests;
+import com.kainos.ea.backend.models.Capability;
+import com.kainos.ea.backend.services.CapabilityService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Objects;
+import javax.management.InstanceAlreadyExistsException;
+import javax.naming.InvalidNameException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
 
-class CapabilityControllerTest extends BackendApplicationTests {
+@ExtendWith(MockitoExtension.class)
+class CapabilityControllerTest {
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    @Mock
+    private CapabilityService capabilityService;
 
-    @Test
-    public void when_CapabilityEndpointCalled_Expect_DataToContainBrianCox() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/capability/"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"name\":\"Data\",\"leadName\":\"Prof Brian Cox\",\"leadPhoto\":\"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Fa176808a-30d8-11eb-8bd6-64d3c9126a9b.jpg\",\"leadMessage\":\"I love space\"}";
+    private CapabilityController capabilityController;
 
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+    @BeforeEach
+    public void setUp() {
+        capabilityController = new CapabilityController(capabilityService);
     }
-  
-    @Test
-    public void getAllCapabilitiesTest() throws Exception{
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/capability/"), HttpMethod.GET, entity, String.class);
-        String expected = "\"name\":\"Engineering\"," +
-                "\"leadName\":null,\"leadPhoto\":null,\"leadMessage\":null";
 
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+    @Test
+    public void when_QueryingAllCapabilities_expect_ServiceCalledPassback() {
+        List<Capability> capabilities = List.of(new Capability());
+        Mockito.when(capabilityService.getCapabilities()).thenReturn(capabilities);
+
+        List<Capability> results = capabilityController.getCapabilities();
+        Mockito.verify(capabilityService).getCapabilities();
+
+        assertEquals(capabilities, results);
+    }
+
+    @Test
+    public void when_AddingCapability_expect_ServiceCalledPassback() throws InvalidNameException, InstanceAlreadyExistsException {
+        Capability capability = new Capability();
+        Mockito.when(capabilityService.addCapability(capability)).thenReturn(capability);
+
+        Capability result = capabilityController.addCapability(capability);
+        Mockito.verify(capabilityService).addCapability(capability);
+
+        assertEquals(capability, result);
+    }
+
+    @Test
+    public void when_AddingInvalidCapability_expect_ServiceCalledPassbackAndNullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
+        Capability capability = new Capability("Invalid name!");
+        Mockito.when(capabilityService.addCapability(capability)).thenThrow(InvalidNameException.class);
+
+        Capability result = capabilityController.addCapability(capability);
+        Mockito.verify(capabilityService).addCapability(capability);
+
+        Assertions.assertNull(result);
+    }
+
+    @Test
+    public void when_AddingExistingCapability_expect_ServiceCalledPassbackAndNullReturn() throws InvalidNameException, InstanceAlreadyExistsException {
+        Capability capability = new Capability("Existing capability");
+        Mockito.when(capabilityService.addCapability(capability)).thenThrow(InstanceAlreadyExistsException.class);
+
+        Capability result = capabilityController.addCapability(capability);
+        Mockito.verify(capabilityService).addCapability(capability);
+
+        Assertions.assertNull(result);
+    }
+
+    @Test
+    public void when_CheckingExistingCapability_expect_ServiceCalledPassback() {
+        String capabilityName = "Existing capability";
+        Mockito.when(capabilityService.capabilityExists(capabilityName)).thenReturn(true);
+
+        boolean result = capabilityController.capabilityExists(capabilityName);
+        Mockito.verify(capabilityService).capabilityExists(capabilityName);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void when_deleteCapability_expect_ServiceCalledPassback() {
+        CapabilityController capabilityController = new CapabilityController(capabilityService);
+
+        ResponseEntity<Object> expected = new ResponseEntity<>("Capability successfully deleted.", HttpStatus.OK);
+        ResponseEntity<Object> result = capabilityController.deleteCapability("");
+
+        Mockito.verify(capabilityService).deleteCapability("");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void when_deleteInvalidCapability_expect_ResponseStatusToBe404() {
+        CapabilityController capabilityController = new CapabilityController(capabilityService);
+        doThrow(EmptyResultDataAccessException.class).when(capabilityService).deleteCapability("");
+
+        ResponseEntity<Object> expected = new ResponseEntity<>("No such capability exists!", HttpStatus.NOT_FOUND);
+        ResponseEntity<Object> result = capabilityController.deleteCapability("");
+
+        Mockito.verify(capabilityService).deleteCapability("");
+        assertEquals(expected, result);
     }
 }

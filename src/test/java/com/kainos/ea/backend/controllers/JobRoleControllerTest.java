@@ -1,64 +1,86 @@
 package com.kainos.ea.backend.controllers;
 
-import org.json.JSONArray;
+import com.kainos.ea.backend.models.JobRole;
+import com.kainos.ea.backend.services.JobRoleService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Objects;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@ExtendWith(MockitoExtension.class)
 class JobRoleControllerTest {
 
-    @LocalServerPort
-    private final int port = 8080;
+    @Mock
+    private JobRoleService jobRoleService;
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    private JobRoleController jobRoleController;
 
-    @Test
-    public void when_QueryingAllJobRoles_expect_ListToNotBeNull() throws Exception{
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
-
-        assertNotNull(Objects.requireNonNull(response.getBody()));
+    @BeforeEach
+    public void setUp() {
+        jobRoleController = new JobRoleController(jobRoleService);
     }
 
     @Test
-    public void when_QueryingAllJobRoles_expect_NotEmptyList() throws Exception{
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
-        
-        assertNotNull(Objects.requireNonNull(response.getBody()));
+    public void when_QueryingAllJobRolesSortedByBandName_expect_ServiceCalledPassback() {
+        List<JobRole> jobRoles = List.of(new JobRole());
+        Mockito.when(jobRoleService.getAllJobRolesSortByBandName()).thenReturn(jobRoles);
+
+        List<JobRole> results = jobRoleController.getAllJobRolesSortedByBandName();
+        // check if the service has been called
+        Mockito.verify(jobRoleService).getAllJobRolesSortByBandName();
+
+        assertEquals(jobRoles, results);
     }
 
     @Test
-    public void when_QueryingAllJobRoles_expect_ListWithJobRoleWithID10() throws Exception{
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/band-level/"), HttpMethod.GET, entity, String.class);
-        String expected = "\"id\":10,\"name\":\"Tester\",\"specification\":\"Writes tests\"";
-        
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+    public void when_QueryingAllJobRolesSortedByCapability_expect_ServiceCalledPassback() {
+        List<JobRole> jobRoles = List.of(new JobRole());
+        Mockito.when(jobRoleService.getAllJobRolesSortedByCapability()).thenReturn(jobRoles);
+
+        List<JobRole> results = jobRoleController.getAllJobRolesSortedByCapability();
+        // check if the service has been called
+        Mockito.verify(jobRoleService).getAllJobRolesSortedByCapability();
+
+        assertEquals(jobRoles, results);
     }
-    
+
     @Test
-    public void when_ListSortedEndpointCalled_Expect_DataToContainRoleWithId10() throws Exception {
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/job-role/list-sorted"), HttpMethod.GET, entity, String.class);
-        String expected = "{\"id\":10,\"name\":\"Tester\",\"specification\":\"Writes tests\"";
+    public void when_DeletingJobRole_expect_ServiceCalledPassbackAndResponseStatusToBe200() {
+        ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.OK);
 
-        assertTrue(Objects.requireNonNull(response.getBody()).contains(expected));
+        ResponseEntity<Object> result = jobRoleController.deleteJobRole(1);
+        Mockito.verify(jobRoleService).deleteJobRole(1);
+
+        assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
 
-    private String createURLWithPort(String uri) {
+    @Test
+    public void when_AddingNewJobRoleWithCorrectData_expect_ResponseStatusToBe201() throws IllegalArgumentException {
+        ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.CREATED);
+        JobRole jobRole = new JobRole();
 
-        return "http://localhost:" + port + uri;
+        ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
+        Mockito.verify(jobRoleService).addJobRole(jobRole);
+
+        assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
     }
 
+    @Test
+    public void when_AddingNewJobRoleWithInvalidData_expect_ResponseStatusToBe400() throws IllegalArgumentException {
+        ResponseEntity<Object> expectedResponse = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        JobRole jobRole = new JobRole();
+        Mockito.doThrow(IllegalArgumentException.class).when(jobRoleService).addJobRole(jobRole);
+
+        ResponseEntity<Object> result = jobRoleController.addJobRole(jobRole);
+        Mockito.verify(jobRoleService).addJobRole(jobRole);
+
+        assertEquals(expectedResponse.getStatusCode(), result.getStatusCode());
+    }
 }

@@ -24,9 +24,14 @@ public class Capability {
      *       CONSTRUCTORS
      * */
 
-    public Capability() {}
+    public Capability() {
+        leadName = "TBA";
+        leadPhoto = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg";
+        leadMessage = "Message will appear after a lead is chosen";
+    }
       
     public Capability(String name) {
+        this();
         this.name = name;
     }
 
@@ -37,7 +42,7 @@ public class Capability {
     @Override
     public String toString() {
         return "Capability{" +
-                "capabilityName='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", leadName='" + leadName + '\'' +
                 ", leadPhoto='" + leadPhoto + '\'' +
                 ", leadMessage='" + leadMessage + '\'' +
